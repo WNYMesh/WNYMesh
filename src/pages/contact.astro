@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import site from '../data/site.json';
+
+// Split the address so it isn't sitting in the page source for spam bots; a small script rebuilds the link.
+const [emailUser, emailDomain] = site.email.split('@');
+---
+<BaseLayout title="Contact" description="Questions, ideas, or a place to host a repeater? We'd love to hear from you.">
+  <PageHeader title="Get in touch" intro="Questions, ideas, or a place to host a repeater? We'd love to hear from you." />
+  <section class="section">
+    <div class="container contact">
+      <div class="card">
+        <form name="contact" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="form">
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="field">
+            <label for="c-name">Your name</label>
+            <input id="c-name" type="text" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="c-email">Email</label>
+            <input id="c-email" type="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="c-message">Message</label>
+            <textarea id="c-message" name="message" required></textarea>
+          </div>
+          <div><button type="submit" class="btn btn--primary">Send message</button></div>
+        </form>
+      </div>
+      <div>
+        <h2>Other ways to reach us</h2>
+        <p><strong>By mail</strong><br />{site.mailingAddress.map((line) => <>{line}<br /></>)}</p>
+        <p>
+          <strong>By email</strong><br />
+          <a class="js-email" data-user={emailUser} data-domain={emailDomain} href="#">Show email address</a>
+        </p>
+        <p><strong>Network questions</strong><br />Our friendly Discord community on <a href={site.networkSite.url}>{site.networkSite.name}</a> is the best place for technical help.</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.js-email').forEach((a) => {
+    const address = `${a.dataset.user}@${a.dataset.domain}`;
+    a.href = `mailto:${address}`;
+    a.textContent = address;
+  });
+</script>
+
+<style>
+  .contact {
+    display: grid;
+    gap: 40px;
+  }
+  @media (min-width: 860px) {
+    .contact {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+</style>

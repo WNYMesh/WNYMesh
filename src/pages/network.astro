@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import site from '../data/site.json';
+---
+<BaseLayout title="Our Network" description="A community radio network, built by volunteers and powered by the sun, that helps Western New Yorkers stay in touch when other systems are down.">
+  <PageHeader
+    eyebrow="Our network"
+    title="A network built by neighbors"
+    intro="Small radios, solar power, and a lot of help from the community. Here's what it is and how you can be part of it."
+  />
+
+  <section class="section">
+    <div class="container narrow prose">
+      <h2>What it is</h2>
+      <p>
+        Our community network is a web of small, low-power radios spread across Western New York.
+        Each one can pass a short text message along to the next, so a message can travel across
+        town and beyond without cell towers, internet, or the power grid.
+      </p>
+      <p>
+        Repeaters on rooftops and other high places help messages travel farther. Many run on
+        solar panels and batteries, so they keep working through an outage.
+      </p>
+
+      <h2>Who it's for</h2>
+      <p>
+        Everyone. Families checking on each other after a storm, neighbors looking out for one
+        another, and community groups that want a dependable backup. You don't need a license or
+        a technical background to use it.
+      </p>
+
+      <div class="notice">
+        <p>The network is a community backup for staying in touch. It is not monitored by emergency services. <strong>Always call 911 in an emergency if you can.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <div class="grid grid--2">
+        <div class="card">
+          <div class="icon-badge"><Icon name="radio" /></div>
+          <h3>Join the network</h3>
+          <p>
+            Our network currently runs on a system called MeshCore. Everything you need to get
+            started, including which radio to get, setup guides, the coverage map, and our friendly
+            Discord community, is on our network site.
+          </p>
+          <a class="btn btn--primary" href={site.networkSite.url}>Visit {site.networkSite.name}</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge"><Icon name="home" /></div>
+          <h3>Host a repeater</h3>
+          <p>
+            A tall building, a sunny rooftop, or a spot with a wide view can help a whole
+            neighborhood stay connected. If you can offer a location, we'd love to talk.
+          </p>
+          <a class="btn btn--soft" href="/get-involved/">Offer a location</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

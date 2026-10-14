@@ -1,0 +1,47 @@
+---
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import EventCard from '../components/EventCard.astro';
+import SignupForm from '../components/SignupForm.astro';
+import { getEvents } from '../lib/events';
+
+const { upcoming, past } = await getEvents();
+const withContent = await Promise.all(
+  upcoming.map(async (event) => ({ event, Content: (await render(event)).Content }))
+);
+---
+<BaseLayout title="Events" description="Build nights, workshops, and meetups. Everyone is welcome, and no experience is needed.">
+  <PageHeader
+    eyebrow="Events"
+    title="Come say hello"
+    intro="Build nights, workshops, and meetups. Everyone is welcome, and no experience is needed."
+  />
+  <section class="section">
+    <div class="container narrow events">
+      {withContent.length === 0 && <p>No events are scheduled right now. Sign up below and we'll let you know when the next one is.</p>}
+      {withContent.map(({ event, Content }) => (
+        <EventCard event={event} full><Content /></EventCard>
+      ))}
+
+      {past.length > 0 && (
+        <>
+          <h2>Past events</h2>
+          <ul>
+            {past.map((e) => <li>{e.data.title}: {e.data.when}</li>)}
+          </ul>
+        </>
+      )}
+    </div>
+  </section>
+  <section class="section section--tint">
+    <div class="container"><SignupForm heading="Hear about the next event" /></div>
+  </section>
+</BaseLayout>
+
+<style>
+  .events {
+    display: grid;
+    gap: 24px;
+  }
+</style>

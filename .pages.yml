@@ -1,0 +1,61 @@
+# Configuration for Pages CMS (https://pagescms.org), a free web editor.
+# Board members sign in at https://app.pagescms.org with their GitHub account and pick this repository.
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: events
+    label: Events
+    type: collection
+    path: src/content/events
+    filename: "{year}-{month}-{primary}.md"
+    view:
+      fields: [title, when]
+    fields:
+      - { name: title, label: Event name, type: string, required: true }
+      - { name: when, label: "When (as it should read, e.g. Saturday, March 7, 10am to 2pm)", type: string, required: true }
+      - { name: date, label: Date (used for sorting; leave empty if not decided), type: date }
+      - { name: location, label: Where, type: string, required: true }
+      - { name: summary, label: Short summary (one or two sentences), type: text, required: true }
+      - { name: draft, label: Hide from the website, type: boolean, default: false }
+      - { name: body, label: Full details, type: rich-text }
+
+  - name: pages
+    label: Page text
+    type: collection
+    path: src/content/pages
+    view:
+      fields: [title]
+    fields:
+      - { name: title, label: Page title, type: string, required: true }
+      - { name: description, label: Short description (shown under the title and in search results), type: text, required: true }
+      - { name: body, label: Page text, type: rich-text }
+
+  - name: settings
+    label: Site settings
+    type: file
+    path: src/data/site.json
+    format: json
+    fields:
+      - { name: name, label: Short name, type: string }
+      - { name: legalName, label: Legal name, type: string }
+      - { name: tagline, label: Tagline, type: string }
+      - { name: description, label: Default description for search engines, type: text }
+      - { name: email, label: Contact email, type: string }
+      - { name: mailingAddress, label: Mailing address lines, type: string, list: true }
+      - name: networkSite
+        label: Network website
+        type: object
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: url, label: Web address, type: string }
+      - { name: taxStatus, label: Tax status sentence (shown in the footer), type: text }
+      - name: board
+        label: Board members shown on the About page
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string }
+          - { name: role, label: Title, type: string }
+      - { name: boardNote, label: Note under the board list, type: text }

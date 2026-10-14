@@ -1,0 +1,32 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+const page = (await getEntry('pages', 'be-ready'))!;
+const { Content } = await render(page);
+---
+<BaseLayout title={page.data.title} description={page.data.description}>
+  <PageHeader title={page.data.title} intro={page.data.description} eyebrow="Preparedness" />
+  <section class="section">
+    <div class="container narrow">
+      <div class="notice">
+        <p><strong>In an emergency, always call 911 if you can.</strong> Our community network is a backup for staying in touch, not an emergency service.</p>
+      </div>
+      <div class="prose"><Content /></div>
+      <div class="card print-cta">
+        <h2>Print a "When the power goes out" card</h2>
+        <p>A one-page card to fill in and keep on the fridge, with your family plan, important numbers, and meeting places.</p>
+        <a class="btn btn--primary" href="/be-ready/card/">Open the printable card</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .print-cta {
+    margin-top: 40px;
+    background: var(--amber-100);
+    border-color: #f1dcb4;
+  }
+</style>

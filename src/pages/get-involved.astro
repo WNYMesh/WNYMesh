@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import site from '../data/site.json';
+
+const ways = [
+  { icon: 'calendar', title: 'Come to an event', text: 'The easiest way to start. Meet us at a build night or workshop and see the network in action.', href: '/events/', link: 'See events' },
+  { icon: 'radio', title: 'Join the network', text: `Get a small radio and start using the network. ${site.networkSite.name} has everything you need.`, href: site.networkSite.url, link: `Visit ${site.networkSite.name}` },
+  { icon: 'home', title: 'Host a repeater', text: 'Have a tall building, a rooftop, or a sunny spot with a view? A repeater there could help a whole neighborhood.', href: '#interest', link: 'Let us know' },
+  { icon: 'hands', title: 'Volunteer', text: 'Help at events, teach a workshop, write guides, spread the word, or lend a hand with installs. Every skill helps.', href: '#interest', link: 'Sign up to help' },
+] as const;
+---
+<BaseLayout title="Get Involved" description="Come to an event, join the network, host a repeater, or volunteer. There's a place for everyone.">
+  <PageHeader
+    eyebrow="Get involved"
+    title="There's a place for everyone"
+    intro="You don't need to be technical to help. Most of what we do is about people: showing up, sharing what you know, and looking out for your neighbors."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2">
+        {ways.map((w) => (
+          <div class="card">
+            <div class="icon-badge"><Icon name={w.icon} /></div>
+            <h3>{w.title}</h3>
+            <p>{w.text}</p>
+            <a href={w.href}>{w.link}</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="interest">
+    <div class="container narrow">
+      <div class="card">
+        <h2>Tell us how you'd like to help</h2>
+        <p>Fill this out and a volunteer will get back to you.</p>
+        <form name="get-involved" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="form">
+          <input type="hidden" name="form-name" value="get-involved" />
+          <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="field">
+            <label for="gi-name">Your name</label>
+            <input id="gi-name" type="text" name="name" autocomplete="name" required />
+          </div>
+          <div class="field">
+            <label for="gi-email">Email</label>
+            <input id="gi-email" type="email" name="email" autocomplete="email" required />
+          </div>
+          <div class="field">
+            <label for="gi-town">Town or neighborhood</label>
+            <input id="gi-town" type="text" name="town" autocomplete="address-level2" />
+          </div>
+          <fieldset class="field">
+            <legend>I'm interested in</legend>
+            <label class="check"><input type="checkbox" name="interest" value="Volunteering at events" /> Volunteering at events</label>
+            <label class="check"><input type="checkbox" name="interest" value="Hosting a repeater" /> Hosting a repeater at my home, business, or building</label>
+            <label class="check"><input type="checkbox" name="interest" value="Teaching or writing guides" /> Teaching a workshop or writing guides</label>
+            <label class="check"><input type="checkbox" name="interest" value="Installs and technical help" /> Helping with installs and technical work</label>
+            <label class="check"><input type="checkbox" name="interest" value="Spreading the word" /> Spreading the word in my community</label>
+          </fieldset>
+          <div class="field">
+            <label for="gi-message">Anything else you'd like us to know? <span class="small">(optional)</span></label>
+            <textarea id="gi-message" name="message"></textarea>
+          </div>
+          <div><button type="submit" class="btn btn--primary">Send</button></div>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

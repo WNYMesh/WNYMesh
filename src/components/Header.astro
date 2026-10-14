@@ -1,0 +1,120 @@
+---
+import Logo from './Logo.astro';
+
+const links = [
+  { href: '/about/', label: 'About' },
+  { href: '/network/', label: 'Our Network' },
+  { href: '/be-ready/', label: 'Be Ready' },
+  { href: '/events/', label: 'Events' },
+  { href: '/get-involved/', label: 'Get Involved' },
+  { href: '/contact/', label: 'Contact' },
+];
+const path = Astro.url.pathname;
+const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
+---
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="/" class="site-header__home" aria-label="WNYMesh home">
+      <Logo />
+    </a>
+
+    <nav class="nav-wide" aria-label="Main">
+      <ul>
+        {links.map((l) => <li><a href={l.href} aria-current={current(l.href)}>{l.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <details class="nav-small">
+      <summary>
+        <span>Menu</span>
+        <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" /></svg>
+      </summary>
+      <nav aria-label="Main">
+        <ul>
+          {links.map((l) => <li><a href={l.href} aria-current={current(l.href)}>{l.label}</a></li>)}
+        </ul>
+      </nav>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background: rgb(253 250 244 / 0.95);
+    border-bottom: 1px solid var(--line);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 72px;
+  }
+  .site-header__home {
+    text-decoration: none;
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  nav a {
+    display: block;
+    text-decoration: none;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 10px 14px;
+    border-radius: 999px;
+  }
+  nav a:hover {
+    background: var(--lake-100);
+    color: var(--lake-900);
+  }
+  nav a[aria-current='page'] {
+    background: var(--amber-100);
+    color: var(--lake-900);
+  }
+  .nav-wide ul {
+    display: flex;
+    gap: 2px;
+  }
+  .nav-small summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+    cursor: pointer;
+    font-weight: 800;
+    color: var(--lake-900);
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--line);
+    min-height: 44px;
+  }
+  .nav-small summary::-webkit-details-marker {
+    display: none;
+  }
+  .nav-small[open] nav {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 72px;
+    background: var(--cream);
+    border-bottom: 1px solid var(--line);
+    box-shadow: var(--shadow);
+    padding: 8px 20px 16px;
+  }
+  @media (max-width: 939px) {
+    .nav-wide {
+      display: none;
+    }
+  }
+  @media (min-width: 940px) {
+    .nav-small {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,84 @@
+---
+// A quiet winter evening: houses with lit windows, linked by the community network.
+---
+<svg viewBox="0 0 640 420" role="img" aria-labelledby="hero-art-title" class="hero-art">
+  <title id="hero-art-title">Illustration of snowy Western New York homes with warm lit windows, connected to each other by gentle radio signals.</title>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#dfeaf1" />
+      <stop offset="0.7" stop-color="#fbeed6" />
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#e8a33d" stop-opacity="0.55" />
+      <stop offset="1" stop-color="#e8a33d" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="640" height="420" rx="28" fill="url(#sky)" />
+  <circle cx="520" cy="86" r="34" fill="#fff8ea" />
+
+  <!-- distant hills and lake -->
+  <path d="M0 250 C110 205 210 225 300 240 C400 255 500 205 640 225 L640 420 L0 420 Z" fill="#c9dbe5" />
+  <path d="M0 285 C140 270 300 300 640 275 L640 420 L0 420 Z" fill="#a9c6d6" />
+  <path d="M0 318 C160 305 360 330 640 312 L640 420 L0 420 Z" fill="#fdfaf4" />
+
+  <!-- signal links between rooftops -->
+  <g fill="none" stroke="#e8a33d" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 10">
+    <path d="M128 214 Q 225 150 318 190" />
+    <path d="M330 190 Q 420 140 506 206" />
+    <path d="M128 214 Q 320 90 506 206" opacity="0.5" />
+  </g>
+
+  <!-- house 1 -->
+  <g>
+    <circle cx="128" cy="276" r="70" fill="url(#glow)" />
+    <path d="M70 262 L128 216 L186 262 Z" fill="#2e5d78" />
+    <rect x="80" y="260" width="96" height="70" rx="4" fill="#f4ede1" />
+    <rect x="96" y="276" width="24" height="22" rx="3" fill="#e8a33d" />
+    <rect x="136" y="292" width="24" height="38" rx="3" fill="#2e5d78" />
+    <line x1="128" y1="216" x2="128" y2="196" stroke="#1d3a4c" stroke-width="3" stroke-linecap="round" />
+    <circle cx="128" cy="194" r="5" fill="#e8a33d" />
+  </g>
+
+  <!-- house 2 -->
+  <g>
+    <circle cx="324" cy="262" r="80" fill="url(#glow)" />
+    <path d="M254 248 L324 192 L394 248 Z" fill="#1d3a4c" />
+    <rect x="266" y="246" width="116" height="84" rx="4" fill="#fff8ea" />
+    <rect x="282" y="264" width="26" height="24" rx="3" fill="#e8a33d" />
+    <rect x="340" y="264" width="26" height="24" rx="3" fill="#e8a33d" />
+    <rect x="310" y="294" width="28" height="36" rx="3" fill="#4f86a4" />
+    <line x1="324" y1="192" x2="324" y2="170" stroke="#1d3a4c" stroke-width="3" stroke-linecap="round" />
+    <circle cx="324" cy="168" r="5" fill="#e8a33d" />
+    <!-- small solar panel -->
+    <rect x="344" y="212" width="26" height="14" rx="2" fill="#4f86a4" transform="rotate(-38 357 219)" />
+  </g>
+
+  <!-- house 3 -->
+  <g>
+    <circle cx="506" cy="282" r="66" fill="url(#glow)" />
+    <path d="M454 270 L506 228 L558 270 Z" fill="#2e5d78" />
+    <rect x="464" y="268" width="84" height="62" rx="4" fill="#f4ede1" />
+    <rect x="478" y="282" width="22" height="20" rx="3" fill="#e8a33d" />
+    <rect x="514" y="292" width="22" height="38" rx="3" fill="#1d3a4c" />
+    <line x1="506" y1="228" x2="506" y2="208" stroke="#1d3a4c" stroke-width="3" stroke-linecap="round" />
+    <circle cx="506" cy="206" r="5" fill="#e8a33d" />
+  </g>
+
+  <!-- snow -->
+  <g fill="#ffffff">
+    <rect x="70" y="326" width="500" height="10" rx="5" opacity="0.9" />
+    <circle cx="60" cy="60" r="3" /><circle cx="140" cy="110" r="2.5" /><circle cx="230" cy="54" r="3" />
+    <circle cx="300" cy="120" r="2" /><circle cx="390" cy="70" r="3" /><circle cx="440" cy="136" r="2.5" />
+    <circle cx="600" cy="150" r="3" /><circle cx="580" cy="40" r="2" /><circle cx="40" cy="170" r="2.5" />
+    <circle cx="200" cy="170" r="2" /><circle cx="470" cy="40" r="2.5" />
+  </g>
+</svg>
+
+<style>
+  .hero-art {
+    display: block;
+    width: 100%;
+    filter: drop-shadow(0 18px 30px rgb(29 58 76 / 0.12));
+  }
+</style>

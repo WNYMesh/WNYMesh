@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import site from '../data/site.json';
+
+const facts = [
+  ['Legal name', site.legalName],
+  ['Organization type', 'New York not-for-profit corporation (charitable)'],
+  ['Incorporated', 'September 30, 2026, in Erie County, New York'],
+  ['NY Department of State ID', '8035135'],
+  ['Federal EIN', '43-2171272'],
+  ['Federal tax status', '501(c)(3) application pending with the IRS'],
+  ['Fiscal year', 'January 1 to December 31'],
+  ['Mailing address', site.mailingAddress.join(', ')],
+];
+---
+<BaseLayout title="Transparency" description="Organization details and governing documents for WNYMesh Inc.">
+  <PageHeader eyebrow="Transparency" title="Open about how we work" intro="We believe a community organization should be easy to understand. Here are the basics about who we are and how we're governed." />
+  <section class="section">
+    <div class="container narrow">
+      <h2>Organization details</h2>
+      <dl class="facts">
+        {facts.map(([k, v]) => (<div><dt>{k}</dt><dd>{v}</dd></div>))}
+      </dl>
+
+      <h2>Governing documents</h2>
+      <ul class="docs">
+        <li class="card">
+          <div>
+            <strong>Bylaws of WNYMesh Inc.</strong><br />
+            <span class="small">Adopted by the Board of Directors on October 8, 2026 (PDF)</span>
+          </div>
+          <a class="btn btn--soft" href="/documents/wnymesh-bylaws-adopted-2026-10-08.pdf">Download</a>
+        </li>
+      </ul>
+      <p class="small">More documents, including our annual reports and filings, will be added here as they become available.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .facts {
+    margin: 0 0 48px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .facts div {
+    display: grid;
+    grid-template-columns: minmax(140px, 1fr) 2fr;
+    gap: 12px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--line);
+  }
+  .facts div:last-child {
+    border-bottom: 0;
+  }
+  dt {
+    font-weight: 800;
+    color: var(--lake-900);
+  }
+  dd {
+    margin: 0;
+  }
+  .docs {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+  }
+  .docs .card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  @media (max-width: 520px) {
+    .facts div {
+      grid-template-columns: 1fr;
+      gap: 2px;
+    }
+  }
+</style>

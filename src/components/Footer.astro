@@ -1,0 +1,94 @@
+---
+import Logo from './Logo.astro';
+import site from '../data/site.json';
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div>
+      <Logo size={36} />
+      <p class="site-footer__tag">{site.tagline}</p>
+      <p class="small">
+        The community network is a backup for staying in touch. It is not an emergency service.
+        <strong>In an emergency, always call 911 if you can.</strong>
+      </p>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Explore</h2>
+      <ul>
+        <li><a href="/about/">About us</a></li>
+        <li><a href="/network/">Our network</a></li>
+        <li><a href="/be-ready/">Be ready</a></li>
+        <li><a href="/events/">Events</a></li>
+        <li><a href="/get-involved/">Get involved</a></li>
+        <li><a href="/transparency/">Transparency</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 class="site-footer__h">Get in touch</h2>
+      <address>
+        {site.mailingAddress.map((line) => <>{line}<br /></>)}
+      </address>
+      <p><a href="/contact/">Send us a message</a></p>
+      <p><a href={site.networkSite.url}>Visit {site.networkSite.name}</a></p>
+    </div>
+  </div>
+  <div class="container site-footer__legal small">
+    <p>{site.taxStatus}<br />© {year} {site.legalName}</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--lake-900);
+    color: #dbe7ee;
+    padding: 56px 0 24px;
+    margin-top: 0;
+  }
+  .site-footer a {
+    color: #fff;
+  }
+  .site-footer :global(.logo__text) {
+    color: #fff;
+  }
+  .site-footer :global(.logo__text span) {
+    color: var(--amber-500);
+  }
+  .site-footer__grid {
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .site-footer__tag {
+    margin-top: 12px;
+    font-weight: 700;
+    color: #fff;
+  }
+  .site-footer .small {
+    color: #b9cbd6;
+  }
+  .site-footer__h {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--amber-500);
+    margin-bottom: 12px;
+  }
+  .site-footer ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-footer li {
+    margin-bottom: 6px;
+  }
+  address {
+    font-style: normal;
+    margin-bottom: 1em;
+  }
+  .site-footer__legal {
+    border-top: 1px solid rgb(255 255 255 / 0.15);
+    margin-top: 40px;
+    padding-top: 20px;
+  }
+</style>

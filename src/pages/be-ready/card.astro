@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Logo from '../../components/Logo.astro';
+import site from '../../data/site.json';
+
+const blanks = (n: number) => Array.from({ length: n });
+---
+<BaseLayout title="Printable emergency card" description="A fill-in card for your family's emergency communication plan.">
+  <section class="section">
+    <div class="container narrow">
+      <div class="no-print">
+        <h1>When the power goes out</h1>
+        <p class="lede">Print this page, fill it in with your family, and keep it somewhere everyone can find it.</p>
+        <button class="btn btn--primary" type="button" onclick="window.print()">Print this card</button>
+        <p class="small"><a href="/be-ready/">Back to Be Ready</a></p>
+      </div>
+
+      <div class="ecard">
+        <div class="ecard__head">
+          <Logo size={32} />
+          <strong>When the power goes out</strong>
+        </div>
+        <p class="ecard__911">In an emergency, call <strong>911</strong> first.</p>
+
+        <h2>Our out-of-area contact</h2>
+        <div class="ecard__lines">
+          <div><span>Name</span><i></i></div>
+          <div><span>Phone</span><i></i></div>
+        </div>
+
+        <h2>Important numbers</h2>
+        <div class="ecard__lines">
+          {blanks(4).map(() => <div><span>Name / phone</span><i></i></div>)}
+        </div>
+
+        <h2>Where we meet</h2>
+        <div class="ecard__lines">
+          <div><span>Near home</span><i></i></div>
+          <div><span>Outside our neighborhood</span><i></i></div>
+        </div>
+
+        <h2>Neighbors to check on</h2>
+        <div class="ecard__lines">
+          {blanks(2).map(() => <div><span>Name / address</span><i></i></div>)}
+        </div>
+
+        <h2>Remember</h2>
+        <ul>
+          <li>Texts often get through when calls won't. Keep them short.</li>
+          <li>Keep battery packs charged. Never run a generator indoors or in a garage.</li>
+          <li>Get alerts at alert.ny.gov. Keep a battery or hand-crank radio.</li>
+          <li>Our community network: {site.networkSite.url.replace('https://', '')}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .ecard {
+    background: #fff;
+    border: 2px solid var(--lake-700);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-top: 32px;
+    font-size: 1rem;
+  }
+  .ecard__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    border-bottom: 2px solid var(--line);
+    padding-bottom: 12px;
+  }
+  .ecard__head strong {
+    font-size: 1.2rem;
+    color: var(--lake-900);
+  }
+  .ecard__911 {
+    background: var(--amber-100);
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin: 16px 0;
+  }
+  .ecard h2 {
+    font-size: 1.05rem;
+    margin: 18px 0 8px;
+  }
+  .ecard__lines div {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 10px;
+  }
+  .ecard__lines span {
+    flex: none;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .ecard__lines i {
+    flex: 1;
+    border-bottom: 1.5px solid #9aa9b2;
+    height: 1.4em;
+  }
+  .ecard ul {
+    padding-left: 1.2em;
+    margin: 0;
+  }
+
+  @media print {
+    :global(.site-header),
+    :global(.site-footer),
+    :global(.skip-link),
+    .no-print {
+      display: none !important;
+    }
+    :global(body) {
+      background: #fff;
+    }
+    :global(.section) {
+      padding: 0;
+    }
+    .ecard {
+      margin: 0;
+      border-width: 1.5px;
+    }
+  }
+</style>

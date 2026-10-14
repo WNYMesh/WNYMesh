@@ -1,0 +1,147 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroArt from '../components/HeroArt.astro';
+import Icon from '../components/Icon.astro';
+import EventCard from '../components/EventCard.astro';
+import SignupForm from '../components/SignupForm.astro';
+import site from '../data/site.json';
+import { getEvents } from '../lib/events';
+
+const { upcoming } = await getEvents();
+const nextEvent = upcoming[0];
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container hero__grid">
+      <div>
+        <span class="eyebrow">{site.tagline}</span>
+        <h1>When the power goes out, neighbors stay connected.</h1>
+        <p class="lede">
+          WNYMesh is a group of volunteers building a community radio network that lets people
+          send messages to each other even when cell service and internet are down. We also help
+          families prepare and bring neighbors together.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn--primary" href="/get-involved/">Get involved</a>
+          <a class="btn btn--soft" href="#how-it-works">How it works</a>
+        </div>
+      </div>
+      <HeroArt />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="center">What we do</h2>
+      <div class="grid grid--3">
+        <div class="card">
+          <div class="icon-badge"><Icon name="radio" /></div>
+          <h3>Keep neighbors connected</h3>
+          <p>We build and care for a network of small, solar-powered radios across Western New York, so messages can still get through in a storm.</p>
+        </div>
+        <div class="card">
+          <div class="icon-badge"><Icon name="book" /></div>
+          <h3>Help families prepare</h3>
+          <p>Free workshops and plain-language guides on making a family plan and staying in touch when the usual ways stop working.</p>
+          <a href="/be-ready/">Simple steps to be ready</a>
+        </div>
+        <div class="card">
+          <div class="icon-badge"><Icon name="people" /></div>
+          <h3>Bring people together</h3>
+          <p>Build nights, meetups, and demonstrations where anyone can learn something new and get to know the people nearby.</p>
+          <a href="/events/">See upcoming events</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint" id="how-it-works">
+    <div class="container">
+      <span class="eyebrow">How it works</span>
+      <h2>Plain and simple</h2>
+      <ol class="steps">
+        <li class="card">
+          <div class="icon-badge"><Icon name="radio" /></div>
+          <h3>A small radio</h3>
+          <p>A pocket-sized radio pairs with your phone, so you can type short messages the way you'd send a text.</p>
+        </li>
+        <li class="card">
+          <div class="icon-badge"><Icon name="hop" /></div>
+          <h3>Neighbor to neighbor</h3>
+          <p>Your message hops from radio to radio, helped along by solar-powered repeaters on volunteers' rooftops and high places.</p>
+        </li>
+        <li class="card">
+          <div class="icon-badge"><Icon name="heart" /></div>
+          <h3>Stay in touch</h3>
+          <p>Check in with family, friends, and neighbors, even when the power, cell towers, or internet are out.</p>
+        </li>
+      </ol>
+      <p class="small">
+        Curious about the technology? Our network's technical home is
+        <a href={site.networkSite.url}>{site.networkSite.name}</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow">Why it matters</span>
+      <h2>Western New York knows storms</h2>
+      <p>
+        Lake-effect snow, ice storms, and long outages can cut a neighborhood off in a few hours.
+        The December 2022 blizzard showed all of us how hard it can be to reach the people we care
+        about when roads close and phones go quiet.
+      </p>
+      <p>
+        A community that is connected before an emergency is safer during one. That's why we build
+        a network that belongs to the community, is powered by the sun, and is open to everyone.
+      </p>
+      <div class="notice">
+        <p><strong>Important:</strong> our network is a backup for staying in touch with each other. It is not an emergency service. In an emergency, always call 911 if you can.</p>
+      </div>
+    </div>
+  </section>
+
+  {nextEvent && (
+    <section class="section section--warm">
+      <div class="container narrow">
+        <span class="eyebrow">Coming up</span>
+        <EventCard event={nextEvent} />
+      </div>
+    </section>
+  )}
+
+  <section class="section">
+    <div class="container">
+      <SignupForm />
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero {
+    background: linear-gradient(180deg, var(--lake-100), var(--cream));
+    padding: clamp(40px, 7vw, 80px) 0;
+  }
+  .hero__grid {
+    display: grid;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 900px) {
+    .hero__grid {
+      grid-template-columns: 1.05fr 1fr;
+    }
+  }
+  .center {
+    text-align: center;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  }
+</style>
