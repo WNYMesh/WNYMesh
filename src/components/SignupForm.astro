@@ -36,7 +36,11 @@ const { heading = 'Stay in the loop' } = Astro.props;
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    align-items: start;
+    /* Keep the boxes lined up when a label wraps onto two lines. */
+    align-items: end;
+  }
+  .signup__form .field {
+    margin: 0;
   }
   .signup__form .btn {
     grid-column: 1 / -1;
