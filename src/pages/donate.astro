@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Icon from '../components/Icon.astro';
+import site from '../data/site.json';
+
+// Give Lively's ID for WNYMesh is the last part of our donation page address:
+// https://secure.givelively.org/donate/<slug>. Set it in Site settings.
+const slug = site.giveLivelySlug.trim();
+const donatePage = slug ? `https://secure.givelively.org/donate/${slug}` : '';
+const widgetSrc = slug
+  ? `https://secure.givelively.org/widgets/simple_donation/${slug}.js?show_suggested_amount_buttons=true&show_in_honor_of=true&address_required=false&has_required_custom_question=null`
+  : '';
+
+const uses = [
+  { icon: 'sun', title: 'Solar repeaters', text: 'Panels, batteries, radios, and weatherproof enclosures for the rooftop repeaters that carry messages across the region.' },
+  { icon: 'book', title: 'Workshops and guides', text: 'Free preparedness classes, printed family plans, and plain-language guides for our neighbors.' },
+  { icon: 'people', title: 'Community events', text: 'Build nights and demonstrations that are open to everyone, whatever their budget.' },
+] as const;
+---
+<BaseLayout title="Donate" description="Support a community radio network that keeps Western New York neighbors connected when the power and cell service go out.">
+  <PageHeader
+    eyebrow="Donate"
+    title="Help keep neighbors connected"
+    intro="WNYMesh is run entirely by volunteers. Your gift buys the equipment and supplies that keep the community network running when it's needed most."
+  />
+
+  <section class="section">
+    <div class="container donate">
+      <div class="donate__form card" id="give">
+        <h2>Make a gift</h2>
+        {slug ? (
+          <>
+            <div id="give-lively-widget" class="gl-simple-donation-widget"></div>
+            <script is:inline define:vars={{ widgetSrc }}>
+              const gl = document.createElement('script');
+              gl.src = widgetSrc;
+              document.head.appendChild(gl);
+            </script>
+            <p class="small">
+              Secure donations are processed by our partner Give Lively, at no cost to WNYMesh. You'll get an
+              emailed receipt for your taxes. If the form doesn't appear,
+              <a href={donatePage}>donate on our Give Lively page</a>.
+            </p>
+          </>
+        ) : (
+          <p>Online giving is being set up and will be available here shortly. In the meantime, you're welcome to give by check.</p>
+        )}
+      </div>
+
+      <div class="donate__side">
+        <div class="card">
+          <h2 class="h3">Give by check</h2>
+          <p>Make your check payable to <strong>{site.legalName}</strong> and mail it to:</p>
+          <address>{site.mailingAddress.map((line) => <>{line}<br /></>)}</address>
+          <p class="small">We'll mail or email a receipt for your records.</p>
+        </div>
+        <div class="card">
+          <h2 class="h3">Other ways to give</h2>
+          <p>
+            Have radios, solar gear, or a rooftop to share? Want to ask about a business sponsorship?
+            <a href="/contact/">Get in touch</a> or see <a href="/get-involved/">other ways to help</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container">
+      <h2 class="center">Where your gift goes</h2>
+      <div class="grid grid--3">
+        {uses.map((u) => (
+          <div class="card">
+            <div class="icon-badge"><Icon name={u.icon} /></div>
+            <h3>{u.title}</h3>
+            <p>{u.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow small legal">
+      <p>
+        {site.legalName} is a 501(c)(3) tax-exempt organization (EIN {site.ein}). Contributions are
+        tax-deductible to the extent allowed by law. No goods or services are provided in exchange for
+        donations unless we tell you otherwise in your receipt.
+      </p>
+      <p>
+        A copy of our latest annual financial report may be obtained from us at the address above, or from the
+        New York State Office of the Attorney General, Charities Bureau, 28 Liberty Street, New York, NY 10005,
+        or at <a href="https://www.charitiesnys.com">charitiesnys.com</a>. See our
+        <a href="/transparency/">transparency page</a> for more about how we're governed.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .donate {
+    display: grid;
+    gap: 24px;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .donate {
+      grid-template-columns: 1.4fr 1fr;
+    }
+  }
+  .donate__side {
+    display: grid;
+    gap: 24px;
+  }
+  .h3 {
+    font-size: 1.3rem;
+  }
+  address {
+    font-style: normal;
+    margin-bottom: 1em;
+  }
+  .center {
+    text-align: center;
+  }
+  .legal p {
+    margin-bottom: 1em;
+  }
+</style>

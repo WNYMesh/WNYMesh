@@ -3,13 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import site from '../data/site.json';
 
-const facts = [
+const facts: [string, string][] = [
   ['Legal name', site.legalName],
   ['Organization type', 'New York not-for-profit corporation (charitable)'],
   ['Incorporated', 'September 30, 2026, in Erie County, New York'],
   ['NY Department of State ID', '8035135'],
-  ['Federal EIN', '43-2171272'],
-  ['Federal tax status', '501(c)(3) application pending with the IRS'],
+  ['Federal EIN', site.ein],
+  ['Federal tax status', 'Tax-exempt under section 501(c)(3) of the Internal Revenue Code'],
+  ...(site.taxExemptEffective ? [['Exempt since', site.taxExemptEffective] as [string, string]] : []),
+  ['Donations', 'Tax-deductible to the extent allowed by law'],
   ['Fiscal year', 'January 1 to December 31'],
   ['Mailing address', site.mailingAddress.join(', ')],
 ];

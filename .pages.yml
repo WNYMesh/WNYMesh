@@ -18,6 +18,8 @@ content:
       - { name: date, label: Date (used for sorting; leave empty if not decided), type: date }
       - { name: location, label: Where, type: string, required: true }
       - { name: summary, label: Short summary (one or two sentences), type: text, required: true }
+      - { name: price, label: "Cost (as it should read, e.g. $25 per person, includes parts). Leave empty for free events.", type: string }
+      - { name: registrationUrl, label: "Square payment link for registration (https://square.link/u/...). Leave empty if no sign-up is needed.", type: string }
       - { name: draft, label: Hide from the website, type: boolean, default: false }
       - { name: body, label: Full details, type: rich-text }
 
@@ -51,6 +53,9 @@ content:
           - { name: name, label: Name, type: string }
           - { name: url, label: Web address, type: string }
       - { name: taxStatus, label: Tax status sentence (shown in the footer), type: text }
+      - { name: taxExemptEffective, label: "501(c)(3) effective date, from the IRS determination letter (e.g. September 30, 2026)", type: string }
+      - { name: ein, label: Federal EIN, type: string }
+      - { name: giveLivelySlug, label: "Give Lively page ID: the last part of https://secure.givelively.org/donate/... (e.g. wnymesh-inc). Turns on the donation form.", type: string }
       - name: board
         label: Board members shown on the About page
         type: object
