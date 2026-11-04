@@ -4,14 +4,24 @@
   "tagline": "A Western New York community emergency network.",
   "description": "WNYMesh helps Western New York neighbors stay connected when the power and cell service go out, through a volunteer-built community radio network, preparedness education, and events that bring people together.",
   "email": "airin@wnymeshcore.org",
-  "mailingAddress": ["WNYMesh Inc.", "PO Box 10", "Boston, NY 14025"],
+  "mailingAddress": [
+    "WNYMesh Inc.",
+    "PO Box 10",
+    "Boston, NY 14025"
+  ],
   "networkSite": {
     "name": "WNYMeshCore",
     "url": "https://wnymeshcore.org"
   },
-  "taxStatus": "WNYMesh Inc. is a New York not-for-profit corporation. Our application for federal 501(c)(3) tax-exempt status is pending with the IRS.",
+  "taxStatus": "WNYMesh Inc. is a New York not-for-profit corporation recognized by the IRS as tax-exempt under section 501(c)(3). Donations are tax-deductible to the extent allowed by law.",
+  "taxExemptEffective": "September 30, 2026",
+  "ein": "43-2171272",
+  "giveLivelySlug": "wnymesh-inc",
   "board": [
-    { "name": "Ehren Reynolds", "role": "President and Board Chair" }
+    {
+      "name": "Ehren Reynolds",
+      "role": "President and Board Chair"
+    }
   ],
   "boardNote": "WNYMesh is led by a five-member volunteer Board of Directors. We'll introduce the rest of the board here soon."
 }

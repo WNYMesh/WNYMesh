@@ -19,6 +19,9 @@ const events = defineCollection({
     when: z.string(),
     location: z.string(),
     summary: z.string(),
+    // Optional paid registration through a Square payment link (https://square.link/u/...).
+    registrationUrl: z.string().url().optional().or(z.literal('')),
+    price: z.string().optional(),
     // Hidden from the site until set to false.
     draft: z.boolean().default(false),
   }),

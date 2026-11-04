@@ -21,6 +21,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
     <nav class="nav-wide" aria-label="Main">
       <ul>
         {links.map((l) => <li><a href={l.href} aria-current={current(l.href)}>{l.label}</a></li>)}
+        <li><a class="nav-donate" href="/donate/" aria-current={current('/donate/')}>Donate</a></li>
       </ul>
     </nav>
 
@@ -32,6 +33,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
       <nav aria-label="Main">
         <ul>
           {links.map((l) => <li><a href={l.href} aria-current={current(l.href)}>{l.label}</a></li>)}
+          <li><a class="nav-donate" href="/donate/" aria-current={current('/donate/')}>Donate</a></li>
         </ul>
       </nav>
     </details>
@@ -77,6 +79,20 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
     background: var(--amber-100);
     color: var(--lake-900);
   }
+  nav a.nav-donate {
+    background: var(--amber-500);
+    color: var(--lake-900);
+    font-weight: 800;
+  }
+  nav a.nav-donate:hover,
+  nav a.nav-donate[aria-current='page'] {
+    background: var(--amber-600);
+    color: #fff;
+  }
+  .nav-small a.nav-donate {
+    margin-top: 6px;
+    text-align: center;
+  }
   .nav-wide ul {
     display: flex;
     gap: 2px;
@@ -107,12 +123,12 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
     box-shadow: var(--shadow);
     padding: 8px 20px 16px;
   }
-  @media (max-width: 939px) {
+  @media (max-width: 1039px) {
     .nav-wide {
       display: none;
     }
   }
-  @media (min-width: 940px) {
+  @media (min-width: 1040px) {
     .nav-small {
       display: none;
     }
