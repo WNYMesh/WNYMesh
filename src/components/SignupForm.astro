@@ -1,5 +1,6 @@
 ---
-// "Stay in the loop" email list. Submissions are collected by Netlify Forms.
+// "Stay in the loop" email list. Netlify Forms collects each signup, then
+// netlify/functions/submission-created.mjs adds it to MailerLite.
 interface Props {
   heading?: string;
 }
@@ -8,7 +9,7 @@ const { heading = 'Stay in the loop' } = Astro.props;
 <div class="signup card">
   <h2>{heading}</h2>
   <p>Get occasional updates about events, workshops, and how the network is growing. No spam, and you can unsubscribe any time.</p>
-  <form name="newsletter" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="signup__form">
+  <form name="newsletter" method="POST" action="/thanks/subscribed/" data-netlify="true" netlify-honeypot="bot-field" class="signup__form">
     <input type="hidden" name="form-name" value="newsletter" />
     <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
     <div class="field">
