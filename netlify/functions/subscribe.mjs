@@ -39,7 +39,9 @@ export default async (req) => {
   }
 
   const fields = {};
-  if (get('name')) fields.name = get('name').slice(0, 100);
+  const first = get('first_name') || get('name');
+  if (first) fields.name = first.slice(0, 100);
+  if (get('last_name')) fields.last_name = get('last_name').slice(0, 100);
   if (get('town')) fields.city = get('town').slice(0, 100);
   const body = { email, fields };
   const groupId = process.env.MAILERLITE_GROUP_ID?.trim();
