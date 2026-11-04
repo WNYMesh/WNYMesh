@@ -14,9 +14,9 @@
     "url": "https://wnymeshcore.org"
   },
   "taxStatus": "WNYMesh Inc. is a New York not-for-profit corporation recognized by the IRS as tax-exempt under section 501(c)(3). Donations are tax-deductible to the extent allowed by law.",
-  "taxExemptEffective": "",
+  "taxExemptEffective": "September 30, 2026",
   "ein": "43-2171272",
-  "giveLivelySlug": "",
+  "giveLivelySlug": "wnymesh-inc",
   "board": [
     {
       "name": "Ehren Reynolds",
