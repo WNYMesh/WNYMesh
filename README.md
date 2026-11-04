@@ -24,24 +24,24 @@ Before showing a big change to the public, you can save it to a separate branch.
 | About and Be Ready page text | `src/content/pages/*.md` |
 | Events | `src/content/events/*.md` |
 | Home, Network, Get Involved, Contact, Transparency, Donate pages | `src/pages/*.astro` |
-| Email list connection (MailerLite) | `netlify/functions/submission-created.mjs` |
+| Email list connection (MailerLite) | `netlify/functions/subscribe.mjs` |
 | Downloadable documents (bylaws, etc.) | `public/documents/` |
 | Colors and fonts | `src/styles/global.css` |
 
 ## Forms
 
-The newsletter, Get Involved, and Contact forms use **Netlify Forms**. Every submission is kept in the Netlify dashboard under **Forms**. To have them emailed, go to **Site configuration → Notifications → Form submission notifications** and add an email notification.
+The Get Involved and Contact forms use **Netlify Forms**. Submissions appear in the Netlify dashboard under **Forms** (turn on **Form detection** there if it's off). To have them emailed, go to **Site configuration → Notifications → Form submission notifications** and add an email notification.
 
 ### Email list (MailerLite)
 
-Newsletter signups are also sent to **MailerLite**, where we write and send updates. This is done by `netlify/functions/submission-created.mjs`, which Netlify runs after each form submission. It needs these Netlify environment variables (**Site configuration → Environment variables**):
+The "Stay in the loop" signup form sends people straight to **MailerLite**, where we write and send updates. This is done by `netlify/functions/subscribe.mjs`. It needs these Netlify environment variables (**Site configuration → Environment variables**). Each must include the **Functions** scope and the deploy contexts you use (Production, and Deploy Previews for testing). Redeploy after changing them.
 
 | Name | Value |
 | --- | --- |
 | `MAILERLITE_API_KEY` | A MailerLite API key (**Integrations → API**). Mark it **Contains secret values**. Never put it in this repository. |
-| `MAILERLITE_GROUP_ID` | Optional. The ID of the MailerLite group new subscribers should join (open the group; the number is in the address bar). |
+| `MAILERLITE_GROUP_ID` | Optional. The ID of the MailerLite group new subscribers join (open the group; the number is in the address bar). |
 
-In MailerLite, turn on **Account settings → Subscribe settings → Double opt-in for API and integrations** so each new subscriber gets a confirmation email. If a signup doesn't reach MailerLite, check **Netlify → Logs → Functions**; the signup is still saved in Netlify Forms and can be exported from there.
+In MailerLite, turn on **Account settings → Subscribe settings → Double opt-in for API and integrations** so each new subscriber gets a confirmation email. New signups show as **Unconfirmed** until they click it. If signups fail, people see `/signup-problem/`, and the reason is in **Netlify → Logs → Functions → subscribe**.
 
 ## Developers
 
