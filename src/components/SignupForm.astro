@@ -11,17 +11,22 @@ const { heading = 'Stay in the loop' } = Astro.props;
   <form method="POST" action="/api/subscribe" class="signup__form">
     <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
     <div class="field">
-      <label for="signup-name">First name <span class="small">(optional)</span></label>
-      <input id="signup-name" type="text" name="name" autocomplete="given-name" />
+      <label for="signup-first">First name</label>
+      <input id="signup-first" type="text" name="first_name" autocomplete="given-name" maxlength="100" />
     </div>
     <div class="field">
-      <label for="signup-email">Email</label>
-      <input id="signup-email" type="email" name="email" autocomplete="email" required />
+      <label for="signup-last">Last name</label>
+      <input id="signup-last" type="text" name="last_name" autocomplete="family-name" maxlength="100" />
     </div>
     <div class="field">
-      <label for="signup-town">Town or neighborhood <span class="small">(optional)</span></label>
-      <input id="signup-town" type="text" name="town" autocomplete="address-level2" />
+      <label for="signup-email">Email <span class="req">(required)</span></label>
+      <input id="signup-email" type="email" name="email" autocomplete="email" inputmode="email" required />
     </div>
+    <div class="field">
+      <label for="signup-town">Town or neighborhood</label>
+      <input id="signup-town" type="text" name="town" autocomplete="address-level2" maxlength="100" />
+    </div>
+    <p class="small signup__note">Only your email is required. Your name and town help us invite you to events near you.</p>
     <button type="submit" class="btn btn--primary">Sign me up</button>
   </form>
 </div>
@@ -33,10 +38,23 @@ const { heading = 'Stay in the loop' } = Astro.props;
   }
   .signup__form {
     display: grid;
-    gap: 16px;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* Keep the boxes lined up when a label wraps onto two lines. */
+    gap: 16px 20px;
+    grid-template-columns: 1fr;
     align-items: end;
+  }
+  @media (min-width: 560px) {
+    .signup__form {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .req {
+    font-weight: 600;
+    font-size: 0.9em;
+    color: var(--ink-soft);
+  }
+  .signup__note {
+    grid-column: 1 / -1;
+    margin: 0;
   }
   .signup__form .field {
     margin: 0;
