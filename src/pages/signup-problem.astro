@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SignupForm from '../components/SignupForm.astro';
+import site from '../data/site.json';
+---
+<BaseLayout title="We couldn't sign you up" description="Something went wrong signing up for WNYMesh updates.">
+  <section class="section">
+    <div class="container narrow">
+      <h1>Sorry, that didn't go through</h1>
+      <p class="lede" id="problem-general">
+        Something went wrong on our end and you weren't added to the list. Please try again in a few minutes.
+      </p>
+      <p class="lede" id="problem-email" hidden>
+        That email address didn't look quite right. Please check it and try again.
+      </p>
+      <p>If it keeps happening, email us at <a href={`mailto:${site.email}`}>{site.email}</a> and we'll add you by hand.</p>
+    </div>
+  </section>
+  <section class="section section--tint">
+    <div class="container"><SignupForm heading="Try again" /></div>
+  </section>
+  <script is:inline>
+    if (new URLSearchParams(location.search).get('reason') === 'email') {
+      document.getElementById('problem-general').hidden = true;
+      document.getElementById('problem-email').hidden = false;
+    }
+  </script>
+</BaseLayout>

@@ -1,5 +1,5 @@
 ---
-// "Stay in the loop" email list. Submissions are collected by Netlify Forms.
+// "Stay in the loop" email list. netlify/functions/subscribe.mjs adds each signup to MailerLite.
 interface Props {
   heading?: string;
 }
@@ -8,9 +8,8 @@ const { heading = 'Stay in the loop' } = Astro.props;
 <div class="signup card">
   <h2>{heading}</h2>
   <p>Get occasional updates about events, workshops, and how the network is growing. No spam, and you can unsubscribe any time.</p>
-  <form name="newsletter" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="signup__form">
-    <input type="hidden" name="form-name" value="newsletter" />
-    <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+  <form method="POST" action="/api/subscribe" class="signup__form">
+    <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
     <div class="field">
       <label for="signup-name">First name <span class="small">(optional)</span></label>
       <input id="signup-name" type="text" name="name" autocomplete="given-name" />
@@ -36,7 +35,11 @@ const { heading = 'Stay in the loop' } = Astro.props;
     display: grid;
     gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    align-items: start;
+    /* Keep the boxes lined up when a label wraps onto two lines. */
+    align-items: end;
+  }
+  .signup__form .field {
+    margin: 0;
   }
   .signup__form .btn {
     grid-column: 1 / -1;
