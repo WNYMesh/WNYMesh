@@ -24,24 +24,43 @@ Before showing a big change to the public, you can save it to a separate branch.
 | About and Be Ready page text | `src/content/pages/*.md` |
 | Events | `src/content/events/*.md` |
 | Home, Network, Get Involved, Contact, Transparency, Donate pages | `src/pages/*.astro` |
-| Email list connection (MailerLite) | `netlify/functions/subscribe.mjs` |
+| Form handling (MailerLite, MailerSend) | `netlify/functions/`, `netlify/lib/forms.mjs` |
 | Downloadable documents (bylaws, etc.) | `public/documents/` |
 | Colors and fonts | `src/styles/global.css` |
 
 ## Forms
 
-The Get Involved and Contact forms use **Netlify Forms**. Submissions appear in the Netlify dashboard under **Forms** (turn on **Form detection** there if it's off). To have them emailed, go to **Site configuration → Notifications → Form submission notifications** and add an email notification.
+All three forms are handled by small Netlify Functions in `netlify/functions/` (shared code in `netlify/lib/forms.mjs`). Netlify Forms is not used.
 
-### Email list (MailerLite)
+| Form | Where | What happens |
+| --- | --- | --- |
+| Stay in the loop | Home and Events pages | Added to MailerLite, in the Newsletter group. |
+| Get Involved | `/get-involved/` | Emailed to the form inbox. Added to MailerLite in the Volunteers group, with their interests. Also added to the Newsletter group if they tick "Also send me the newsletter". |
+| Contact | `/contact/` | Emailed to the form inbox. |
 
-The "Stay in the loop" signup form sends people straight to **MailerLite**, where we write and send updates. This is done by `netlify/functions/subscribe.mjs`. It needs these Netlify environment variables (**Site configuration → Environment variables**). Each must include the **Functions** scope and the deploy contexts you use (Production, and Deploy Previews for testing). Redeploy after changing them.
+Form emails come from MailerSend (MailerLite's sister service for one-off emails). Hit **Reply** to answer the person directly.
+
+### Settings
+
+Set these in **Netlify → Site configuration → Environment variables**. Each must include the **Functions** scope and the deploy contexts you use (Production, and Deploy Previews for testing). Redeploy after changing them.
 
 | Name | Value |
 | --- | --- |
-| `MAILERLITE_API_KEY` | A MailerLite API key (**Integrations → API**). Mark it **Contains secret values**. Never put it in this repository. |
-| `MAILERLITE_GROUP_ID` | Optional. The ID of the MailerLite group new subscribers join (open the group; the number is in the address bar). |
+| `MAILERLITE_API_KEY` | MailerLite API key (**Integrations → API**). Secret. |
+| `MAILERLITE_NEWSLETTER_GROUP_ID` | ID of the MailerLite **Newsletter** group (open the group; the number is in the address bar). |
+| `MAILERLITE_VOLUNTEERS_GROUP_ID` | ID of the MailerLite **Volunteers** group. |
+| `MAILERSEND_API_KEY` | MailerSend API token (**Integrations → API tokens**, with permission to send email). Secret. |
+| `FORM_INBOX` | Where Contact and Get Involved messages are sent, e.g. `airin@wnymeshcore.org`. Change it here when the shared inbox is ready. No code change needed. |
+| `FORM_FROM` | Address the form emails come from. Must be on a domain verified in MailerSend, e.g. `website@wnymeshcore.org`. It doesn't need to be a real mailbox. |
 
-In MailerLite, turn on **Account settings → Subscribe settings → Double opt-in for API and integrations** so each new subscriber gets a confirmation email. New signups show as **Unconfirmed** until they click it. If signups fail, people see `/signup-problem/`, and the reason is in **Netlify → Logs → Functions → subscribe**.
+In MailerLite:
+- Create a text field named **Interests** under **Subscribers → Fields** so volunteers' interests are saved. Without it, volunteers are still added, just without their interests.
+- Send newsletters to the **Newsletter** group, not to all subscribers, so volunteers who didn't ask for the newsletter don't get it.
+- **Double opt-in for API and integrations** (**Account settings → Subscribe settings**) sends new subscribers a confirmation email.
+
+### When something goes wrong
+
+The visitor sees the problem on the form, and what they typed is kept. Without JavaScript they see `/signup-problem/` or `/form-problem/` instead. The reason is in **Netlify → Logs → Functions** under the form's function (`subscribe`, `get-involved` or `contact`).
 
 ## Developers
 

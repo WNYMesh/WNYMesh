@@ -4,11 +4,12 @@ interface Props {
   heading?: string;
 }
 const { heading = 'Stay in the loop' } = Astro.props;
+import FormEnhance from './FormEnhance.astro';
 ---
 <div class="signup card">
   <h2>{heading}</h2>
   <p>Get occasional updates about events, workshops, and how the network is growing. No spam, and you can unsubscribe any time.</p>
-  <form method="POST" action="/api/subscribe" class="signup__form">
+  <form method="POST" action="/api/subscribe" class="signup__form" data-enhance>
     <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
     <div class="field">
       <label for="signup-first">First name</label>
@@ -27,9 +28,11 @@ const { heading = 'Stay in the loop' } = Astro.props;
       <input id="signup-town" type="text" name="town" autocomplete="address-level2" maxlength="100" />
     </div>
     <p class="small signup__note">Only your email is required. Your name and town help us invite you to events near you.</p>
+    <p class="form-status signup__note" role="alert" hidden></p>
     <button type="submit" class="btn btn--primary">Sign me up</button>
   </form>
 </div>
+<FormEnhance />
 
 <style>
   .signup {

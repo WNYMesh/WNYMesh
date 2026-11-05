@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import site from '../data/site.json';
+// Shown when a form is sent without JavaScript and something goes wrong.
+// (With JavaScript, the problem is shown on the form itself.)
+---
+<BaseLayout title="Your message didn't go through" description="Something went wrong sending your message to WNYMesh.">
+  <section class="section">
+    <div class="container narrow">
+      <h1>Sorry, that didn't go through</h1>
+      <p class="lede" data-reason="server">Something went wrong on our end and your message wasn't sent.</p>
+      <p class="lede" data-reason="email" hidden>That email address didn't look quite right.</p>
+      <p class="lede" data-reason="missing" hidden>A required field was empty.</p>
+      <p>
+        Please use your browser's back button to return to the form and try again. If it keeps happening,
+        email us at <a href={`mailto:${site.email}`}>{site.email}</a>.
+      </p>
+      <a class="btn btn--soft" href="/">Back to home</a>
+    </div>
+  </section>
+  <script is:inline>
+    const reason = new URLSearchParams(location.search).get('reason');
+    if (reason === 'email' || reason === 'missing') {
+      document.querySelectorAll('[data-reason]').forEach((p) => (p.hidden = p.dataset.reason !== reason));
+    }
+  </script>
+</BaseLayout>
