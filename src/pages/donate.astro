@@ -4,14 +4,10 @@ import PageHeader from '../components/PageHeader.astro';
 import Icon from '../components/Icon.astro';
 import site from '../data/site.json';
 
-// Give Lively's ID for WNYMesh is the last part of our donation page address:
-// https://secure.givelively.org/donate/<slug>. Set it in Site settings.
-const slug = site.giveLivelySlug.trim();
-const donatePage = slug ? `https://secure.givelively.org/donate/${slug}` : '';
-const widgetSrc = slug
-  ? `https://secure.givelively.org/widgets/simple_donation/${slug}.js?show_suggested_amount_buttons=true&show_in_honor_of=true&address_required=false&has_required_custom_question=null`
-  : '';
+import FormEnhance from '../components/FormEnhance.astro';
 
+// Suggested amounts in dollars. The donor can also type their own ($5 to $10,000).
+const amounts = [25, 50, 100, 250];
 const uses = [
   { icon: 'sun', title: 'Solar repeaters', text: 'Panels, batteries, radios, and weatherproof enclosures for the rooftop repeaters that carry messages across the region.' },
   { icon: 'book', title: 'Workshops and guides', text: 'Free preparedness classes, printed family plans, and plain-language guides for our neighbors.' },
@@ -29,23 +25,42 @@ const uses = [
     <div class="container donate">
       <div class="donate__form card" id="give">
         <h2>Make a gift</h2>
-        {slug ? (
-          <>
-            <div id="give-lively-widget" class="gl-simple-donation-widget"></div>
-            <script is:inline define:vars={{ widgetSrc }}>
-              const gl = document.createElement('script');
-              gl.src = widgetSrc;
-              document.head.appendChild(gl);
-            </script>
-            <p class="small">
-              Secure donations are processed by our partner Give Lively, at no cost to WNYMesh. You'll get an
-              emailed receipt for your taxes. If the form doesn't appear,
-              <a href={donatePage}>donate on our Give Lively page</a>.
-            </p>
-          </>
-        ) : (
-          <p>Online giving is being set up and will be available here shortly. In the meantime, you're welcome to give by check.</p>
-        )}
+        <p class="notice-inline" id="donate-problem" hidden></p>
+        <form method="POST" action="/api/donate" class="form give" data-enhance>
+          <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
+
+          <fieldset class="field">
+            <legend>How often?</legend>
+            <div class="toggle">
+              <label><input type="radio" name="frequency" value="once" checked /><span>One time</span></label>
+              <label><input type="radio" name="frequency" value="monthly" /><span>Monthly</span></label>
+            </div>
+          </fieldset>
+
+          <fieldset class="field">
+            <legend>Amount</legend>
+            <div class="amounts">
+              {amounts.map((a, i) => (
+                <label><input type="radio" name="amount" value={a} checked={i === 1} /><span>${a}</span></label>
+              ))}
+              <label><input type="radio" name="amount" value="other" /><span>Other</span></label>
+            </div>
+            <div class="other">
+              <label for="custom-amount">Other amount (USD)</label>
+              <div class="dollar">
+                <span aria-hidden="true">$</span>
+                <input id="custom-amount" name="custom_amount" type="text" inputmode="decimal" autocomplete="off" placeholder="e.g. 40" maxlength="10" />
+              </div>
+            </div>
+          </fieldset>
+
+          <p class="form-status" role="alert" hidden></p>
+          <div><button type="submit" class="btn btn--primary btn--wide">Donate</button></div>
+          <p class="small">
+            You'll enter your card on Stripe's secure checkout page, then come back here. Your tax receipt is emailed
+            to you right away. Monthly gifts can be changed or cancelled any time by emailing us.
+          </p>
+        </form>
       </div>
 
       <div class="donate__side">
@@ -96,6 +111,25 @@ const uses = [
       </p>
     </div>
   </section>
+  <FormEnhance />
+  <script>
+    // Typing an amount selects "Other"; picking a preset clears the box.
+    const custom = document.querySelector<HTMLInputElement>('#custom-amount');
+    const other = document.querySelector<HTMLInputElement>('input[name="amount"][value="other"]');
+    custom?.addEventListener('input', () => { if (other && custom.value) other.checked = true; });
+    document.querySelectorAll<HTMLInputElement>('input[name="amount"]').forEach((r) =>
+      r.addEventListener('change', () => { if (r.value === 'other') custom?.focus(); else if (custom) custom.value = ''; })
+    );
+    // Without JavaScript, a problem sends the browser back here with ?reason=...
+    const reason = new URLSearchParams(location.search).get('reason');
+    const problem = document.getElementById('donate-problem');
+    if (reason && problem) {
+      problem.textContent = reason === 'amount'
+        ? 'Please choose an amount between $5 and $10,000.'
+        : "Sorry, we couldn't start your donation. Please try again in a few minutes.";
+      problem.hidden = false;
+    }
+  </script>
 </BaseLayout>
 
 <style>
@@ -125,5 +159,90 @@ const uses = [
   }
   .legal p {
     margin-bottom: 1em;
+  }
+  .toggle,
+  .amounts {
+    display: grid;
+    gap: 10px;
+  }
+  .toggle {
+    grid-template-columns: 1fr 1fr;
+  }
+  .amounts {
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  }
+  .toggle label,
+  .amounts label {
+    margin: 0;
+  }
+  .toggle input,
+  .amounts input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .toggle span,
+  .amounts span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    border: 2px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--paper);
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--lake-900);
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s;
+  }
+  .toggle span:hover,
+  .amounts span:hover {
+    border-color: var(--lake-500);
+  }
+  .toggle input:checked + span,
+  .amounts input:checked + span {
+    background: var(--lake-700);
+    border-color: var(--lake-700);
+    color: #fff;
+  }
+  .toggle input:focus-visible + span,
+  .amounts input:focus-visible + span {
+    outline: 3px solid var(--amber-500);
+    outline-offset: 2px;
+  }
+  .other {
+    margin-top: 14px;
+  }
+  .other label {
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .dollar {
+    position: relative;
+  }
+  .dollar span {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 800;
+    color: var(--ink-soft);
+  }
+  .dollar input {
+    padding-left: 30px !important;
+  }
+  .btn--wide {
+    width: 100%;
+    font-size: 1.15rem;
+  }
+  .notice-inline {
+    margin: 0 0 16px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: #fde8e4;
+    border-left: 5px solid #b4412b;
+    color: #6e2213;
+    font-weight: 700;
   }
 </style>

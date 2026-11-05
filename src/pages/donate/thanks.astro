@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import site from '../../data/site.json';
+---
+<BaseLayout title="Thank you for your gift" description="Thank you for supporting WNYMesh.">
+  <section class="section">
+    <div class="container narrow">
+      <span class="eyebrow">Donation received</span>
+      <h1>Thank you!</h1>
+      <p class="lede">
+        Your gift helps keep Western New York neighbors connected when the power and cell service go out.
+        We've emailed you a receipt for your tax records. It should arrive within a few minutes.
+      </p>
+      <p>
+        Don't see it? Check your spam or promotions folder, or email us at
+        <a href={`mailto:${site.email}`}>{site.email}</a> and we'll send another.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/events/">See upcoming events</a>
+        <a class="btn btn--soft" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
