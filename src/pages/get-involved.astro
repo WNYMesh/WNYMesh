@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Icon from '../components/Icon.astro';
 import site from '../data/site.json';
+import FormEnhance from '../components/FormEnhance.astro';
 
 const ways = [
   { icon: 'calendar', title: 'Come to an event', text: 'The easiest way to start. Meet us at a build night or workshop and see the network in action.', href: '/events/', link: 'See events' },
@@ -39,12 +40,17 @@ const ways = [
       <div class="card">
         <h2>Tell us how you'd like to help</h2>
         <p>Fill this out and a volunteer will get back to you.</p>
-        <form name="get-involved" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="form">
-          <input type="hidden" name="form-name" value="get-involved" />
-          <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
-          <div class="field">
-            <label for="gi-name">Your name</label>
-            <input id="gi-name" type="text" name="name" autocomplete="name" required />
+        <form method="POST" action="/api/get-involved" class="form" data-enhance>
+          <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
+          <div class="form-row">
+            <div class="field">
+              <label for="gi-first">First name</label>
+              <input id="gi-first" type="text" name="first_name" autocomplete="given-name" maxlength="100" required />
+            </div>
+            <div class="field">
+              <label for="gi-last">Last name</label>
+              <input id="gi-last" type="text" name="last_name" autocomplete="family-name" maxlength="100" />
+            </div>
           </div>
           <div class="field">
             <label for="gi-email">Email</label>
@@ -64,11 +70,14 @@ const ways = [
           </fieldset>
           <div class="field">
             <label for="gi-message">Anything else you'd like us to know? <span class="small">(optional)</span></label>
-            <textarea id="gi-message" name="message"></textarea>
+            <textarea id="gi-message" name="message" maxlength="5000"></textarea>
           </div>
+          <label class="check"><input type="checkbox" name="newsletter" value="yes" /> Also send me the newsletter: occasional updates about events and the network</label>
+          <p class="form-status" role="alert" hidden></p>
           <div><button type="submit" class="btn btn--primary">Send</button></div>
         </form>
       </div>
     </div>
   </section>
+  <FormEnhance />
 </BaseLayout>

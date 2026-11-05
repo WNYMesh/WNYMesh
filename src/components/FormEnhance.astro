@@ -1,0 +1,49 @@
+---
+// Submits forms marked `data-enhance` in the background, so if something goes wrong the
+// message appears on the form and nothing the person typed is lost. Without JavaScript,
+// the forms still work: the server redirects to a thank-you or problem page instead.
+// Astro includes this script only once per page, however many forms use it.
+---
+<script>
+  const messages: Record<string, string> = {
+    email: "That email address doesn't look quite right. Please check it and try again.",
+    missing: 'Please fill in the required fields and try again.',
+    server: "Sorry, something went wrong on our end and it didn't go through. Please try again in a few minutes.",
+  };
+
+  document.querySelectorAll<HTMLFormElement>('form[data-enhance]').forEach((form) => {
+    const status = form.querySelector<HTMLElement>('.form-status');
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    form.addEventListener('submit', async (event) => {
+      if (!status) return; // No place to show problems: let the browser submit normally.
+      event.preventDefault();
+      status.hidden = true;
+      const label = button?.textContent ?? '';
+      if (button) {
+        button.disabled = true;
+        button.textContent = 'Sending…';
+      }
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json().catch(() => ({ ok: false, reason: 'server' }));
+        if (data.ok && data.redirect) {
+          window.location.assign(data.redirect);
+          return;
+        }
+        status.textContent = messages[data.reason] ?? messages.server;
+      } catch {
+        status.textContent = "We couldn't reach the server. Please check your connection and try again.";
+      }
+      status.hidden = false;
+      status.focus?.();
+      if (button) {
+        button.disabled = false;
+        button.textContent = label;
+      }
+    });
+  });
+</script>

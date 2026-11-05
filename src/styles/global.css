@@ -312,6 +312,22 @@ fieldset.field {
   flex: none;
 }
 
+.form-row {
+  display: grid;
+  gap: 18px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.form-status {
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: #fde8e4;
+  border-left: 5px solid #b4412b;
+  color: #6e2213;
+  font-weight: 700;
+}
+
 .hidden-field {
   position: absolute;
   left: -9999px;

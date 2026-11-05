@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import site from '../data/site.json';
+import FormEnhance from '../components/FormEnhance.astro';
 
 // Split the address so it isn't sitting in the page source for spam bots; a small script rebuilds the link.
 const [emailUser, emailDomain] = site.email.split('@');
@@ -11,9 +12,8 @@ const [emailUser, emailDomain] = site.email.split('@');
   <section class="section">
     <div class="container contact">
       <div class="card">
-        <form name="contact" method="POST" action="/thanks/" data-netlify="true" netlify-honeypot="bot-field" class="form">
-          <input type="hidden" name="form-name" value="contact" />
-          <p class="hidden-field"><label>Leave this empty: <input name="bot-field" tabindex="-1" autocomplete="off" /></label></p>
+        <form method="POST" action="/api/contact" class="form" data-enhance>
+          <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
           <div class="field">
             <label for="c-name">Your name</label>
             <input id="c-name" type="text" name="name" autocomplete="name" required />
@@ -24,8 +24,9 @@ const [emailUser, emailDomain] = site.email.split('@');
           </div>
           <div class="field">
             <label for="c-message">Message</label>
-            <textarea id="c-message" name="message" required></textarea>
+            <textarea id="c-message" name="message" maxlength="5000" required></textarea>
           </div>
+          <p class="form-status" role="alert" hidden></p>
           <div><button type="submit" class="btn btn--primary">Send message</button></div>
         </form>
       </div>
@@ -40,6 +41,7 @@ const [emailUser, emailDomain] = site.email.split('@');
       </div>
     </div>
   </section>
+  <FormEnhance />
 </BaseLayout>
 
 <script>
