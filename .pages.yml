@@ -55,7 +55,6 @@ content:
       - { name: taxStatus, label: Tax status sentence (shown in the footer), type: text }
       - { name: taxExemptEffective, label: "501(c)(3) effective date, from the IRS determination letter (e.g. September 30, 2026)", type: string }
       - { name: ein, label: Federal EIN, type: string }
-      - { name: giveLivelySlug, label: "Give Lively page ID: the last part of https://secure.givelively.org/donate/... (e.g. wnymesh-inc). Turns on the donation form.", type: string }
       - name: board
         label: Board members shown on the About page
         type: object

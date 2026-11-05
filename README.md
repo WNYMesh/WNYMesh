@@ -11,7 +11,7 @@ The technical home of our MeshCore network is a separate site, [wnymeshcore.org]
 3. You can edit:
    - **Events**: add, change, or hide events. For a paid event, add the cost and a Square payment link.
    - **Page text**: the About and Be Ready pages.
-   - **Site settings**: tagline, contact email, mailing address, board list, tax status, and the Give Lively page ID.
+   - **Site settings**: tagline, contact email, mailing address, board list, and tax status.
 4. Save. Netlify rebuilds and publishes the site in about a minute.
 
 Before showing a big change to the public, you can save it to a separate branch. Netlify creates a preview link for review.
@@ -76,12 +76,37 @@ Netlify settings are in `netlify.toml` (build command `npm run build`, publish d
 
 ## Donations and payments
 
-WNYMesh is a 501(c)(3). Money comes in through two services, and both send payouts to the corporate bank account:
+WNYMesh is a 501(c)(3). Payouts go to the corporate bank account.
 
-- **Give Lively** handles donations on the **Donate** page (`/donate/`). In Pages CMS, open **Site settings** and fill in **Give Lively page ID**: the last part of our Give Lively donation address, `https://secure.givelively.org/donate/<page-id>`. Until it's filled in, the Donate page asks people to give by check. Give Lively emails each donor a tax receipt.
-- **Square** handles paid event registration. In the Square Dashboard, create a payment link (**Payments → Payment links → Create link**) for the event, then paste the `https://square.link/u/...` address into the event's **Square payment link** field in Pages CMS. A **Register** button appears on the event. Leave the field empty for free events.
+### Donations (Stripe)
 
-Also fill in **501(c)(3) effective date** from the IRS determination letter so it shows on the Transparency page. To publish the letter itself, add the PDF to `public/documents/`.
+The **Donate** page (`/donate/`) takes one-time and monthly gifts ($5 to $10,000) through **Stripe Checkout**:
+
+1. `netlify/functions/donate.mjs` creates a Checkout session and sends the donor to Stripe's secure payment page.
+2. When the payment succeeds, Stripe calls `netlify/functions/stripe-webhook.mjs`. It checks Stripe's signature, then emails the donor a tax receipt through MailerSend: amount, date, reference, our EIN, 501(c)(3) status, and "no goods or services were provided". It also sends a short "New donation" note to `FORM_INBOX`. Monthly donors get a receipt every month.
+3. The donor lands on `/donate/thanks/`.
+
+Only payments started from our Donate page get receipts. Other Stripe activity is ignored.
+
+Settings (**Netlify → Site configuration → Environment variables**, Functions scope). Use Stripe **test** keys for Deploy Previews and **live** keys for Production:
+
+| Name | Value |
+| --- | --- |
+| `STRIPE_SECRET_KEY` | Stripe secret key (`sk_test_...` for Deploy Previews, `sk_live_...` for Production). Secret. A restricted key also works if it can write Checkout Sessions. |
+| `STRIPE_WEBHOOK_SECRET` | The signing secret (`whsec_...`) of the webhook endpoint below. Test mode and live mode each have their own. Secret. |
+| `DONATION_FROM` | Optional. Address receipts come from, e.g. `donations@wnymeshcore.org`. Defaults to `FORM_FROM`. Replies go to `FORM_INBOX`. |
+
+In Stripe (**Developers → Webhooks → Add endpoint**), point the webhook at `https://wnymesh.org/api/stripe-webhook` (live), or at the Deploy Preview's address (test). Send these events: `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `invoice.paid`. Then turn off Stripe's own receipt emails (**Settings → Customer emails → Successful payments**) so donors don't get two.
+
+To change or cancel someone's monthly gift, find the subscription in the Stripe dashboard (**Customers**, or **Billing → Subscriptions**).
+
+### Paid event registration (Square)
+
+**Square** handles paid event registration. In the Square Dashboard, create a payment link (**Payments → Payment links → Create link**) for the event, then paste the `https://square.link/u/...` address into the event's **Square payment link** field in Pages CMS. A **Register** button appears on the event. Leave the field empty for free events.
+
+### Tax status
+
+**501(c)(3) effective date** is in Site settings and shows on the Transparency page. To publish the IRS determination letter, add the PDF to `public/documents/`.
 
 ## Planned later
 

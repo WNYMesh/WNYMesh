@@ -89,37 +89,25 @@ export async function addToMailerLite({ email, fields = {}, customFields = {}, g
 }
 
 /**
- * Email a form submission to the organization's inbox through MailerSend.
- * Replying to the email replies to the person who filled in the form.
- * `rows` is a list of [label, value] pairs. Returns true on success. Never throws.
+ * Send one email through MailerSend. Returns true on success. Never throws.
+ * `to` and `replyTo` are { email, name? }.
  */
-export async function emailInbox({ subject, replyTo, rows }) {
+export async function sendEmail({ to, replyTo, fromName = 'WNYMesh website', fromEmail = env('FORM_FROM'), subject, text, html }) {
   const apiKey = env('MAILERSEND_API_KEY');
-  const to = env('FORM_INBOX');
-  const from = env('FORM_FROM');
-  const missing = [!apiKey && 'MAILERSEND_API_KEY', !to && 'FORM_INBOX', !from && 'FORM_FROM'].filter(Boolean);
+  const missing = [!apiKey && 'MAILERSEND_API_KEY', !fromEmail && 'FORM_FROM'].filter(Boolean);
   if (missing.length) {
     console.error(`Email: ${missing.join(', ')} not available to this function. Check scopes and deploy contexts, then redeploy.`);
     return false;
   }
-
-  const filled = rows.filter(([, v]) => v);
-  const text = filled.map(([k, v]) => `${k}:\n${v}`).join('\n\n') + '\n\nSent from the form on wnymesh.org. Reply to this email to answer them.';
-  const html =
-    '<table cellpadding="6" style="font-family:sans-serif;font-size:15px;border-collapse:collapse">' +
-    filled
-      .map(([k, v]) => `<tr><th align="left" valign="top" style="color:#1d3a4c;white-space:nowrap">${escapeHtml(k)}</th><td style="white-space:pre-wrap">${escapeHtml(v)}</td></tr>`)
-      .join('') +
-    '</table><p style="font-family:sans-serif;color:#4d5e68;font-size:13px">Sent from the form on wnymesh.org. Reply to this email to answer them.</p>';
-
+  const person = (p) => ({ email: p.email, ...(p.name && { name: oneLine(p.name).slice(0, 100) }) });
   try {
     const res = await fetch('https://api.mailersend.com/v1/email', {
       method: 'POST',
       headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        from: { email: from, name: 'WNYMesh website' },
-        to: [{ email: to }],
-        reply_to: { email: replyTo.email, name: oneLine(replyTo.name || replyTo.email).slice(0, 100) },
+        from: { email: fromEmail, name: fromName },
+        to: [person(to)],
+        ...(replyTo?.email && { reply_to: person(replyTo) }),
         subject: oneLine(subject).slice(0, 150),
         text,
         html,
@@ -129,10 +117,44 @@ export async function emailInbox({ subject, replyTo, rows }) {
     if (res.ok) return true;
     console.error(`Email: MailerSend returned ${res.status}. ${(await res.text()).slice(0, 500)}`);
     if (res.status === 401) console.error('MailerSend rejected the API key. Check MAILERSEND_API_KEY.');
-    if (res.status === 422) console.error('Check that FORM_FROM uses a domain verified in MailerSend.');
+    if (res.status === 422) console.error('Check that the from address uses a domain verified in MailerSend.');
     return false;
   } catch (err) {
     console.error(`Email: MailerSend could not be reached (${err.name}).`);
     return false;
   }
+}
+
+/** A simple two-column table of [label, value] rows, as HTML and plain text. Empty values are skipped. */
+export function detailsTable(rows) {
+  const filled = rows.filter(([, v]) => v);
+  return {
+    text: filled.map(([k, v]) => `${k}: ${v}`).join('\n'),
+    html:
+      '<table cellpadding="6" style="font-family:sans-serif;font-size:15px;border-collapse:collapse">' +
+      filled
+        .map(([k, v]) => `<tr><th align="left" valign="top" style="color:#1d3a4c;white-space:nowrap">${escapeHtml(k)}</th><td style="white-space:pre-wrap">${escapeHtml(v)}</td></tr>`)
+        .join('') +
+      '</table>',
+  };
+}
+
+export { escapeHtml };
+
+/**
+ * Email a form submission to the organization's inbox (FORM_INBOX).
+ * Replying to the email replies to the person who filled in the form.
+ * `rows` is a list of [label, value] pairs. Returns true on success. Never throws.
+ */
+export async function emailInbox({ subject, replyTo, rows }) {
+  const to = env('FORM_INBOX');
+  if (!to) {
+    console.error('Email: FORM_INBOX not available to this function. Check scopes and deploy contexts, then redeploy.');
+    return false;
+  }
+  const filled = rows.filter(([, v]) => v);
+  const note = 'Sent from the form on wnymesh.org. Reply to this email to answer them.';
+  const text = filled.map(([k, v]) => `${k}:\n${v}`).join('\n\n') + `\n\n${note}`;
+  const html = detailsTable(rows).html + `<p style="font-family:sans-serif;color:#4d5e68;font-size:13px">${note}</p>`;
+  return sendEmail({ to: { email: to }, replyTo, subject, text, html });
 }
