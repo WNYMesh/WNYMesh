@@ -48,7 +48,10 @@ import site from '../data/site.json';
             started, including which radio to get, setup guides, the coverage map, and our friendly
             Discord community, is on our network site.
           </p>
-          <a class="btn btn--primary" href={site.networkSite.url}>Visit {site.networkSite.name}</a>
+          <div class="btn-row">
+            <a class="btn btn--primary" href={site.radioGuideUrl}>Which radio to get</a>
+            <a class="btn btn--soft" href={site.networkSite.url}>Visit {site.networkSite.name}</a>
+          </div>
         </div>
         <div class="card">
           <div class="icon-badge"><Icon name="home" /></div>

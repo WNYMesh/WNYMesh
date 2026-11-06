@@ -30,4 +30,4 @@ The essentials for a few days at home: water (about a gallon per person per day)
 
 ## 5. Learn about the community network
 
-The WNYMesh community network lets people send short text messages through a chain of neighborhood radios when phones and internet aren't working. Come to an event to see it in action, or visit **[WNYMeshCore](https://wnymeshcore.org)** to learn how to join.
+The WNYMesh community network lets people send short text messages through a chain of neighborhood radios when phones and internet aren't working. Come to an event to see it in action, or visit **[WNYMeshCore](https://wnymeshcore.org)** to learn how to join. Our guide to **[which radio to get](https://wnymeshcore.org/guides/getting-started#hardware)** walks you through the options, and our **[partners](/partners/)** carry them.

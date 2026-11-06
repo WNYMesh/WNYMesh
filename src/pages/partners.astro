@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import site from '../data/site.json';
+
+const partners = site.partners ?? [];
+const hasAffiliate = partners.some((p) => p.affiliate);
+---
+<BaseLayout title="Partners" description="The businesses that help WNYMesh keep Western New York's community radio network running.">
+  <PageHeader
+    eyebrow="Partners"
+    title="The businesses behind the network"
+    intro="These partners supply the radios and parts our volunteers use, and help keep the network growing."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <ul class="partners">
+        {partners.map((p) => (
+          <li class="card partner">
+            <a
+              class="partner__logo"
+              href={p.url}
+              rel={p.affiliate ? 'sponsored noopener' : 'noopener'}
+              aria-label={`Visit ${p.name}`}
+            >
+              {p.logo ? <img src={p.logo} alt={p.name} loading="lazy" /> : <span class="partner__wordmark">{p.name}</span>}
+            </a>
+            <div class="partner__body">
+              <h2>{p.name}</h2>
+              {p.description && <p>{p.description}</p>}
+              <a class="btn btn--primary" href={p.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>
+                {p.linkText || `Visit ${p.name}`}
+              </a>
+              {p.affiliate && site.affiliateDisclosure && <p class="small partner__note">{site.affiliateDisclosure}</p>}
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <div class="card next">
+        <h2>Not sure which radio to get?</h2>
+        <p>Our network site compares the radios we recommend for beginners and links to where you can buy each one.</p>
+        <a class="btn btn--soft" href={site.radioGuideUrl}>See the radio guide</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container narrow">
+      <h2>Become a partner</h2>
+      <p>
+        Local businesses can help by sponsoring a solar repeater, donating equipment, or offering a
+        rooftop. {site.legalName} is a 501(c)(3), so gifts are tax-deductible to the extent allowed by law.
+      </p>
+      <a class="btn btn--primary" href="/contact/">Talk to us about partnering</a>
+      {hasAffiliate && <p class="small partner__fine">Some links on this page are affiliate links. See the note under each partner.</p>}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .partners {
+    list-style: none;
+    margin: 0 0 32px;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+  }
+  .partner {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 28px;
+    align-items: start;
+  }
+  .partner__logo {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 16px;
+    text-decoration: none;
+  }
+  .partner__logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+  .partner__wordmark {
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--lake-900);
+  }
+  .partner__body h2 {
+    margin-top: 0;
+  }
+  .partner__note {
+    margin-top: 16px;
+    margin-bottom: 0;
+  }
+  .partner__fine {
+    margin-top: 24px;
+  }
+  .next h2 {
+    margin-top: 0;
+  }
+  @media (max-width: 640px) {
+    .partner {
+      grid-template-columns: 1fr;
+    }
+    .partner__logo {
+      max-width: 220px;
+    }
+  }
+</style>
