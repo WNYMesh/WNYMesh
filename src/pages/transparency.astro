@@ -10,6 +10,7 @@ const facts: [string, string][] = [
   ['NY Department of State ID', '8035135'],
   ['Federal EIN', site.ein],
   ['Federal tax status', 'Tax-exempt under section 501(c)(3) of the Internal Revenue Code'],
+  ['Public charity status', 'Public charity under section 170(b)(1)(A)(vi) (supported by the general public)'],
   ...(site.taxExemptEffective ? [['Exempt since', site.taxExemptEffective] as [string, string]] : []),
   ['Donations', 'Tax-deductible to the extent allowed by law'],
   ['New York charity registration', 'Registered with the NY Attorney General, Charities Bureau'],
@@ -28,6 +29,13 @@ const facts: [string, string][] = [
 
       <h2>Governing documents</h2>
       <ul class="docs">
+        <li class="card">
+          <div>
+            <strong>IRS determination letter</strong><br />
+            <span class="small">Recognizes WNYMesh Inc. as a 501(c)(3) public charity, effective September 30, 2026. Issued October 27, 2026 (PDF)</span>
+          </div>
+          <a class="btn btn--soft" href="/documents/wnymesh-irs-determination-letter-2026-10-27.pdf">Download</a>
+        </li>
         <li class="card">
           <div>
             <strong>Bylaws of WNYMesh Inc.</strong><br />

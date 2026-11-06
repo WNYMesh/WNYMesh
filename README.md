@@ -106,7 +106,7 @@ To change or cancel someone's monthly gift, find the subscription in the Stripe 
 
 ### Tax status
 
-**501(c)(3) effective date** is in Site settings and shows on the Transparency page. To publish the IRS determination letter, add the PDF to `public/documents/`.
+**501(c)(3) effective date** is in Site settings and shows on the Transparency page. The IRS determination letter (Letter 947, issued October 27, 2026) is at `public/documents/wnymesh-irs-determination-letter-2026-10-27.pdf` and linked from the Transparency page. It also says an annual Form 990, 990-EZ, or 990-N must be filed.
 
 ## Planned later
 
