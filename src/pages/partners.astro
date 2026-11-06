@@ -69,14 +69,14 @@ const hasAffiliate = partners.some((p) => p.affiliate);
   }
   .partner {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 240px 1fr;
     gap: 28px;
     align-items: start;
   }
   .partner__logo {
     display: grid;
     place-items: center;
-    aspect-ratio: 3 / 2;
+    min-height: 120px;
     background: #fff;
     border: 1px solid var(--line);
     border-radius: var(--radius);
@@ -84,8 +84,8 @@ const hasAffiliate = partners.some((p) => p.affiliate);
     text-decoration: none;
   }
   .partner__logo img {
-    max-width: 100%;
-    max-height: 100%;
+    width: 100%;
+    height: auto;
     object-fit: contain;
   }
   .partner__wordmark {
@@ -111,7 +111,8 @@ const hasAffiliate = partners.some((p) => p.affiliate);
       grid-template-columns: 1fr;
     }
     .partner__logo {
-      max-width: 220px;
+      max-width: 280px;
+      min-height: 0;
     }
   }
 </style>
