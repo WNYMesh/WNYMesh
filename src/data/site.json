@@ -22,5 +22,17 @@
       "role": "President and Board Chair"
     }
   ],
-  "boardNote": "WNYMesh is led by a five-member volunteer Board of Directors. We'll introduce the rest of the board here soon."
+  "boardNote": "WNYMesh is led by a five-member volunteer Board of Directors. We'll introduce the rest of the board here soon.",
+  "radioGuideUrl": "https://wnymeshcore.org/guides/getting-started#hardware",
+  "partners": [
+    {
+      "name": "Rokland",
+      "url": "https://store.rokland.com/?ref=cgazynmi",
+      "logo": "",
+      "description": "Rokland is a US-based distributor of the radios and parts our network runs on, including RAKwireless, Heltec and Elecrow gear. Orders ship from within the US, so there are no import tariffs or long overseas waits. It's where we point new members for their first radio and where we source parts for our solar repeaters.",
+      "linkText": "Shop Rokland",
+      "affiliate": true
+    }
+  ],
+  "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network."
 }

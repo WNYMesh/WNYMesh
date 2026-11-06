@@ -63,3 +63,16 @@ content:
           - { name: name, label: Name, type: string }
           - { name: role, label: Title, type: string }
       - { name: boardNote, label: Note under the board list, type: text }
+      - { name: radioGuideUrl, label: "Web address of the \"which radio to get\" guide", type: string }
+      - name: partners
+        label: Partners shown on the Partners page
+        type: object
+        list: true
+        fields:
+          - { name: name, label: Name, type: string, required: true }
+          - { name: url, label: "Link (for an affiliate partner, paste the full referral link)", type: string, required: true }
+          - { name: logo, label: "Logo (optional; the name is shown if empty)", type: image }
+          - { name: description, label: Why we work with them, type: text }
+          - { name: linkText, label: "Button text (e.g. Shop Rokland)", type: string }
+          - { name: affiliate, label: "We earn a commission through this link", type: boolean, default: false }
+      - { name: affiliateDisclosure, label: Commission disclosure (shown next to affiliate links), type: text }
