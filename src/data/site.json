@@ -38,7 +38,15 @@
       "url": "https://www.seeedstudio.com/?sensecap_affiliate=H9Hraqm&referring_service=link",
       "description": "Seeed Studio designs and builds hardware for MeshCore and Meshtastic, including the SenseCAP Solar Node P1, XIAO boards and Wio trackers. It's a good place to buy a ready-made solar node or a compact radio to build into your own project.",
       "linkText": "Shop Seeed Studio",
-      "affiliate": true
+      "affiliate": true,
+      "products": [
+        {
+          "name": "Wio-SX1262 with XIAO ESP32S3",
+          "url": "https://www.seeedstudio.com/Wio-SX1262-with-XIAO-ESP32S3-p-5982.html?sensecap_affiliate=H9Hraqm&referring_service=link"
+        }
+      ],
+      "coupon": "L1VHKFFH",
+      "couponNote": "enter it at checkout for a discount on your order."
     }
   ],
   "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network."

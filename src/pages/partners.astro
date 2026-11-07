@@ -29,6 +29,23 @@ const hasAffiliate = partners.some((p) => p.affiliate);
             <div class="partner__body">
               <h2>{p.name}</h2>
               {p.description && <p>{p.description}</p>}
+              {p.products?.length > 0 && (
+                <div class="partner__products">
+                  <h3>Radios we recommend from {p.name}</h3>
+                  <ul>
+                    {p.products.map((item) => (
+                      <li>
+                        <a href={item.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>{item.name}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {p.coupon && (
+                <p class="partner__coupon">
+                  Coupon code: <code>{p.coupon}</code>{p.couponNote && <span> — {p.couponNote}</span>}
+                </p>
+              )}
               <a class="btn btn--primary" href={p.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>
                 {p.linkText || `Visit ${p.name}`}
               </a>
@@ -95,6 +112,25 @@ const hasAffiliate = partners.some((p) => p.affiliate);
   }
   .partner__body h2 {
     margin-top: 0;
+  }
+  .partner__products h3 {
+    font-size: 1rem;
+    margin: 0 0 6px;
+  }
+  .partner__products ul {
+    margin: 0 0 16px;
+    padding-left: 20px;
+  }
+  .partner__coupon {
+    border: 1px dashed var(--line);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+  }
+  .partner__coupon code {
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.04em;
+    user-select: all;
   }
   .partner__note {
     margin-top: 16px;
