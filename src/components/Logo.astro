@@ -1,36 +1,35 @@
 ---
-// Simple placeholder mark: three neighbors linked together, with one lit like a porch light.
+// The WNYMesh Inc. logo. Files live in public/images/brand/.
+// - horizontal: mark + wordmark side by side, transparent background (for light backgrounds)
+// - round: circular badge on a white disc (works on light and dark backgrounds)
 interface Props {
-  size?: number;
-  withText?: boolean;
+  variant?: 'horizontal' | 'round';
+  /** Rendered height in pixels; width follows the image's shape. */
+  height?: number;
+  class?: string;
 }
-const { size = 40, withText = true } = Astro.props;
+const { variant = 'horizontal', height = 56, class: className } = Astro.props;
+
+const files = {
+  horizontal: { src: '/images/brand/wnymesh-logo-horizontal.webp', width: 1200, height: 332 },
+  round: { src: '/images/brand/wnymesh-logo-round.webp', width: 512, height: 512 },
+};
+const f = files[variant];
+const width = Math.round((height * f.width) / f.height);
 ---
-<span class="logo">
-  <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-    <circle cx="24" cy="24" r="23" fill="#e5eff4" />
-    <circle cx="24" cy="15" r="9" fill="#e8a33d" opacity="0.25" />
-    <path d="M13 32 L24 15 L35 32 Z" fill="none" stroke="#2e5d78" stroke-width="2.6" stroke-linejoin="round" />
-    <circle cx="13" cy="32" r="4.6" fill="#2e5d78" />
-    <circle cx="35" cy="32" r="4.6" fill="#2e5d78" />
-    <circle cx="24" cy="15" r="4.8" fill="#e8a33d" />
-  </svg>
-  {withText && <span class="logo__text">WNY<span>Mesh</span></span>}
-</span>
+<img
+  class:list={['logo', className]}
+  src={f.src}
+  width={width}
+  height={height}
+  alt="WNYMesh Inc. Community Network"
+  decoding="async"
+/>
 
 <style>
   .logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .logo__text {
-    font-weight: 900;
-    font-size: 1.4rem;
-    letter-spacing: -0.01em;
-    color: var(--lake-900);
-  }
-  .logo__text span {
-    color: var(--amber-600);
+    display: block;
+    max-width: 100%;
+    height: auto;
   }
 </style>
