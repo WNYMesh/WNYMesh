@@ -3,7 +3,7 @@ title: Repeater Build Night
 when: November 2026, the week before Thanksgiving (date to be announced)
 location: Buffalo area (location to be announced)
 summary: Spend an evening with neighbors building the solar-powered repeaters that keep our community network running. No experience needed. We'll show you every step.
-draft: false
+draft: true
 ---
 
 Come build part of the network with us. Volunteers will walk everyone through putting together a solar-powered repeater, the small rooftop radios that pass messages across Western New York.
