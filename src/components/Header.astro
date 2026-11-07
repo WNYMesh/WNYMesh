@@ -15,7 +15,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
 <header class="site-header">
   <div class="container site-header__inner">
     <a href="/" class="site-header__home" aria-label="WNYMesh home">
-      <Logo />
+      <Logo height={64} class="site-header__logo" />
     </a>
 
     <nav class="nav-wide" aria-label="Main">
@@ -57,6 +57,17 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
   }
   .site-header__home {
     text-decoration: none;
+    flex-shrink: 1;
+    min-width: 0;
+  }
+  .site-header__home :global(.site-header__logo) {
+    width: auto;
+    height: 64px;
+  }
+  @media (max-width: 480px) {
+    .site-header__home :global(.site-header__logo) {
+      height: 48px;
+    }
   }
   ul {
     list-style: none;
