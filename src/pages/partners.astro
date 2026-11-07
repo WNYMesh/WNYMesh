@@ -35,7 +35,13 @@ const hasAffiliate = partners.some((p) => p.affiliate);
                   <ul>
                     {p.products.map((item) => (
                       <li>
-                        <a href={item.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>{item.name}</a>
+                        <a class="partner__product-name" href={item.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>{item.name}</a>
+                        {item.note && <p>{item.note}</p>}
+                        {item.coupon && (
+                          <p class="partner__coupon">
+                            Coupon code: <code>{item.coupon}</code>{item.couponNote && <span> — {item.couponNote}</span>}
+                          </p>
+                        )}
                       </li>
                     ))}
                   </ul>
@@ -118,8 +124,25 @@ const hasAffiliate = partners.some((p) => p.affiliate);
     margin: 0 0 6px;
   }
   .partner__products ul {
-    margin: 0 0 16px;
-    padding-left: 20px;
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: grid;
+    gap: 14px;
+  }
+  .partner__products li {
+    border-left: 3px solid var(--line);
+    padding-left: 14px;
+  }
+  .partner__products li p {
+    margin: 4px 0 0;
+  }
+  .partner__product-name {
+    font-weight: 700;
+  }
+  .partner__products .partner__coupon {
+    margin-top: 8px;
+    display: inline-block;
   }
   .partner__coupon {
     border: 1px dashed var(--line);

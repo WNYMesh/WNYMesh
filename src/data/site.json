@@ -42,11 +42,19 @@
       "products": [
         {
           "name": "XIAO nRF52840 & Wio-SX1262 Kit",
-          "url": "https://www.seeedstudio.com/XIAO-nRF52840-Wio-SX1262-Kit-for-Meshtastic-p-6400.html?sensecap_affiliate=H9Hraqm&referring_service=link"
+          "url": "https://www.seeedstudio.com/XIAO-nRF52840-Wio-SX1262-Kit-for-Meshtastic-p-6400.html?sensecap_affiliate=H9Hraqm&referring_service=link",
+          "note": "A small, low-power board to build into your own radio or enclosure.",
+          "coupon": "L1VHKFFH",
+          "couponNote": "2% off XIAO boards"
+        },
+        {
+          "name": "SenseCAP Solar Node P1",
+          "url": "https://www.seeedstudio.com/catalogsearch/result/?q=SenseCAP+Solar+Node+P1&sensecap_affiliate=H9Hraqm&referring_service=link",
+          "note": "A good all-in-one, no-build solar node. Its range is usually modest, though: fine for a house close to the mesh, but not suited to a regional backbone or a neighborhood hub.",
+          "coupon": "PXK5CQIG",
+          "couponNote": "5% off the Solar Node P1 series"
         }
-      ],
-      "coupon": "L1VHKFFH",
-      "couponNote": "enter it at checkout for 2% off XIAO boards, including the kit above."
+      ]
     }
   ],
   "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network."

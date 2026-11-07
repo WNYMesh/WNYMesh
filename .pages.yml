@@ -82,6 +82,9 @@ content:
             fields:
               - { name: name, label: Product name, type: string, required: true }
               - { name: url, label: Referral link, type: string, required: true }
+              - { name: note, label: "Short note (who it's good for)", type: text }
+              - { name: coupon, label: "Coupon code (optional)", type: string }
+              - { name: couponNote, label: "What the coupon gets you (e.g. 2% off XIAO boards)", type: string }
           - { name: coupon, label: "Coupon code (optional)", type: string }
           - { name: couponNote, label: "What the coupon gets you (e.g. 5% off XIAO boards)", type: string }
       - { name: affiliateDisclosure, label: Commission disclosure (shown next to affiliate links), type: text }
