@@ -36,6 +36,7 @@
     {
       "name": "Seeed Studio",
       "url": "https://www.seeedstudio.com/?sensecap_affiliate=H9Hraqm&referring_service=link",
+      "logo": "/images/partners/seeed-studio.webp",
       "description": "Seeed Studio designs and builds hardware for MeshCore and Meshtastic, including the SenseCAP Solar Node P1, XIAO boards and Wio trackers. It's a good place to buy a ready-made solar node or a compact radio to build into your own project.",
       "linkText": "Shop Seeed Studio",
       "affiliate": true,
