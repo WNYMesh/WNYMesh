@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "version": "0.1.0",
-  "description": "Website for WNYMesh Inc., a Western New York community emergency network.",
+  "description": "Website for WNYMesh Inc., a Western New York community communication network.",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
