@@ -1,6 +1,6 @@
 # wnymesh.org
 
-The website for **WNYMesh Inc.**, a Western New York community emergency network.
+The website for **WNYMesh Inc.**, a Western New York community communication network.
 
 The technical home of our MeshCore network is a separate site, [wnymeshcore.org](https://wnymeshcore.org), kept in its own repository.
 
