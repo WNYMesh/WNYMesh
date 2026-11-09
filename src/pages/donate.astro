@@ -39,7 +39,7 @@ const uses = [
 
           <fieldset class="field">
             <legend>Amount</legend>
-            <p class="repeater-line">${site.repeaters.cost} builds one solar repeater. We've deployed {site.repeaters.deployed} so far.</p>
+            <p class="repeater-line">${site.repeaters.cost} builds one solar repeater. {site.repeaters.regionTotal} are on the mesh across WNY, {site.repeaters.deployed} built by WNYMesh.</p>
             <div class="amounts">
               {amounts.map((a, i) => (
                 <label><input type="radio" name="amount" value={a} checked={i === 1} /><span>${a}</span></label>

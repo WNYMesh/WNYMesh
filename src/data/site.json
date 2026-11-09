@@ -66,6 +66,7 @@
   },
   "repeaters": {
     "cost": 100,
+    "regionTotal": 90,
     "deployed": 22,
     "mapUrl": "https://map.wnymeshcore.org"
   }

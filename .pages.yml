@@ -93,7 +93,8 @@ content:
         type: object
         fields:
           - { name: cost, label: "Rough cost to build one solar repeater, in dollars", type: number }
-          - { name: deployed, label: Number of repeaters deployed so far, type: number }
+          - { name: regionTotal, label: "Repeaters on the mesh region-wide, built by everyone (check the coverage map)", type: number }
+          - { name: deployed, label: Repeaters built and deployed by WNYMesh Inc., type: number }
           - { name: mapUrl, label: Coverage map web address, type: string }
       - name: googleAds
         label: Google Ads conversion tracking
