@@ -1,0 +1,32 @@
+---
+// Reports a Google Ads conversion from a thank-you page. Turned on per kind by pasting
+// its conversion label into Site settings → Google Ads conversion tracking.
+// kind="donation": fires only when Stripe sent the donor here (?sid=...), with the gift's
+// value and the Checkout session as the transaction ID, so a page refresh isn't counted twice.
+// kind="signup": fires on page load; the conversion action counts one per click.
+import site from '../data/site.json';
+
+interface Props { kind: 'donation' | 'signup' }
+const { kind } = Astro.props;
+const ads = site.googleAds ?? {};
+const label = kind === 'donation' ? ads.donationLabel : ads.signupLabel;
+const sendTo = ads.tagId && label ? `${ads.tagId}/${label}` : '';
+const isDonation = kind === 'donation';
+---
+{sendTo && (
+  <script is:inline define:vars={{ sendTo, isDonation }}>
+    (function () {
+      if (typeof gtag !== 'function') return;
+      var data = { send_to: sendTo };
+      if (isDonation) {
+        var p = new URLSearchParams(location.search);
+        var sid = p.get('sid');
+        if (!sid) return;
+        data.value = parseFloat(p.get('v')) || 0;
+        data.currency = 'USD';
+        data.transaction_id = sid;
+      }
+      gtag('event', 'conversion', data);
+    })();
+  </script>
+)}

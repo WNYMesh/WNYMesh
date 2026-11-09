@@ -84,7 +84,16 @@ The **Donate** page (`/donate/`) takes one-time and monthly gifts ($5 to $10,000
 
 1. `netlify/functions/donate.mjs` creates a Checkout session and sends the donor to Stripe's secure payment page.
 2. When the payment succeeds, Stripe calls `netlify/functions/stripe-webhook.mjs`. It checks Stripe's signature, then emails the donor a tax receipt through MailerSend: amount, date, reference, our EIN, 501(c)(3) status, and "no goods or services were provided". It also sends a short "New donation" note to `FORM_INBOX`. Monthly donors get a receipt every month.
-3. The donor lands on `/donate/thanks/`.
+3. The donor lands on `/donate/thanks/?sid=...&v=...&f=...`. The query string feeds the Google Ads donation conversion (below); the page itself ignores it.
+
+### Google Ads conversion tracking
+
+The Google tag (`AW-18560057917`) loads on every page from `src/layouts/BaseLayout.astro`. Two thank-you pages report conversions through `src/components/AdsConversion.astro`:
+
+- `/donate/thanks/` reports **Donation**, with the gift amount as its value and the Stripe Checkout session as the transaction ID, so a refresh isn't counted twice. It fires only when Stripe sent the donor there.
+- `/thanks/subscribed/` reports **Newsletter signup**.
+
+Each is off until its conversion label is filled in under **Site settings → Google Ads conversion tracking** in Pages CMS (or `googleAds` in `src/data/site.json`). The label is the part after the slash in the event snippet's `send_to` value (Google Ads → Goals → Conversions → the action → Tag setup). The amount in the URL is for ad reporting only; Stripe is the record of what was given.
 
 Only payments started from our Donate page get receipts. Other Stripe activity is ignored.
 

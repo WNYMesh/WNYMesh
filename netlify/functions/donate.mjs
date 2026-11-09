@@ -33,7 +33,8 @@ export default async (req) => {
   const params = {
     mode: monthly ? 'subscription' : 'payment',
     line_items: [lineItem],
-    success_url: `${origin}/donate/thanks/`,
+    // sid lets the Google Ads conversion on the thanks page count each gift once; v and f give its value and type.
+    success_url: `${origin}/donate/thanks/?sid={CHECKOUT_SESSION_ID}&v=${cents / 100}&f=${monthly ? 'monthly' : 'once'}`,
     cancel_url: `${origin}/donate/`,
     metadata: DONATION_METADATA,
     ...(monthly

@@ -58,5 +58,10 @@
       ]
     }
   ],
-  "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network."
+  "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network.",
+  "googleAds": {
+    "tagId": "AW-18560057917",
+    "donationLabel": "",
+    "signupLabel": ""
+  }
 }
