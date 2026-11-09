@@ -88,3 +88,10 @@ content:
           - { name: coupon, label: "Coupon code (optional)", type: string }
           - { name: couponNote, label: "What the coupon gets you (e.g. 5% off XIAO boards)", type: string }
       - { name: affiliateDisclosure, label: Commission disclosure (shown next to affiliate links), type: text }
+      - name: googleAds
+        label: Google Ads conversion tracking
+        type: object
+        fields:
+          - { name: tagId, label: "Google tag ID (AW-...)", type: string }
+          - { name: donationLabel, label: "Donation conversion label (the part after the slash in send_to; leave empty to turn off)", type: string }
+          - { name: signupLabel, label: "Newsletter signup conversion label (leave empty to turn off)", type: string }
