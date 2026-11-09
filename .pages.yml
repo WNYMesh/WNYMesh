@@ -88,6 +88,13 @@ content:
           - { name: coupon, label: "Coupon code (optional)", type: string }
           - { name: couponNote, label: "What the coupon gets you (e.g. 5% off XIAO boards)", type: string }
       - { name: affiliateDisclosure, label: Commission disclosure (shown next to affiliate links), type: text }
+      - name: repeaters
+        label: Solar repeaters (shown in donation asks)
+        type: object
+        fields:
+          - { name: cost, label: "Rough cost to build one solar repeater, in dollars", type: number }
+          - { name: deployed, label: Number of repeaters deployed so far, type: number }
+          - { name: mapUrl, label: Coverage map web address, type: string }
       - name: googleAds
         label: Google Ads conversion tracking
         type: object

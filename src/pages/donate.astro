@@ -39,6 +39,7 @@ const uses = [
 
           <fieldset class="field">
             <legend>Amount</legend>
+            <p class="repeater-line">${site.repeaters.cost} builds one solar repeater. We've deployed {site.repeaters.deployed} so far.</p>
             <div class="amounts">
               {amounts.map((a, i) => (
                 <label><input type="radio" name="amount" value={a} checked={i === 1} /><span>${a}</span></label>
@@ -120,6 +121,13 @@ const uses = [
     document.querySelectorAll<HTMLInputElement>('input[name="amount"]').forEach((r) =>
       r.addEventListener('change', () => { if (r.value === 'other') custom?.focus(); else if (custom) custom.value = ''; })
     );
+    // ?amount=100 (from a "Give $100" link) preselects that amount, or fills in "Other".
+    const wanted = new URLSearchParams(location.search).get('amount');
+    if (wanted && /^\d{1,5}$/.test(wanted)) {
+      const preset = document.querySelector<HTMLInputElement>(`input[name="amount"][value="${wanted}"]`);
+      if (preset) preset.checked = true;
+      else if (custom && other) { other.checked = true; custom.value = wanted; }
+    }
     // Without JavaScript, a problem sends the browser back here with ?reason=...
     const reason = new URLSearchParams(location.search).get('reason');
     const problem = document.getElementById('donate-problem');
@@ -142,6 +150,9 @@ const uses = [
     .donate {
       grid-template-columns: 1.4fr 1fr;
     }
+  }
+  #give {
+    scroll-margin-top: 96px;
   }
   .donate__side {
     display: grid;
@@ -213,6 +224,11 @@ const uses = [
   }
   .other {
     margin-top: 14px;
+  }
+  .repeater-line {
+    margin: 0 0 12px;
+    font-weight: 700;
+    color: var(--lake-900);
   }
   .other label {
     font-weight: 700;

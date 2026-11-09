@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Icon from '../components/Icon.astro';
 import site from '../data/site.json';
+import FundRepeater from '../components/FundRepeater.astro';
 ---
 <BaseLayout title="Our Network" description="A community radio network, built by volunteers and powered by the sun, that helps Western New Yorkers stay in touch when other systems are down.">
   <PageHeader
@@ -21,7 +22,9 @@ import site from '../data/site.json';
       </p>
       <p>
         Repeaters on rooftops and other high places help messages travel farther. Many run on
-        solar panels and batteries, so they keep working through an outage.
+        solar panels and batteries, so they keep working through an outage. Each one costs about
+        ${site.repeaters.cost} to build, and we've put up {site.repeaters.deployed} so far.
+        <a href="#fund">Help fund the next one</a>.
       </p>
 
       <h2>Who it's for</h2>
@@ -64,5 +67,9 @@ import site from '../data/site.json';
         </div>
       </div>
     </div>
+  </section>
+
+  <section class="section" id="fund">
+    <div class="container narrow"><FundRepeater /></div>
   </section>
 </BaseLayout>

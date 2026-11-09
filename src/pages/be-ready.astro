@@ -2,6 +2,8 @@
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import FundRepeater from '../components/FundRepeater.astro';
+import SignupForm from '../components/SignupForm.astro';
 
 const page = (await getEntry('pages', 'be-ready'))!;
 const { Content } = await render(page);
@@ -19,11 +21,21 @@ const { Content } = await render(page);
         <p>A one-page card to fill in and keep on the fridge, with your family plan, important numbers, and meeting places.</p>
         <a class="btn btn--primary" href="/be-ready/card/">Open the printable card</a>
       </div>
+      <div class="be-ready__more">
+        <FundRepeater heading="Help your neighborhood stay connected" />
+      </div>
     </div>
+  </section>
+
+  <section class="section section--tint">
+    <div class="container"><SignupForm heading="Get preparedness tips and event invites" /></div>
   </section>
 </BaseLayout>
 
 <style>
+  .be-ready__more {
+    margin-top: 24px;
+  }
   .print-cta {
     margin-top: 40px;
     background: var(--amber-100);

@@ -63,5 +63,10 @@
     "tagId": "AW-18560057917",
     "donationLabel": "43GdCJL2mrUdEL2EkJJF",
     "signupLabel": "BRAWCNvkm7UdEL2EkJJF"
+  },
+  "repeaters": {
+    "cost": 100,
+    "deployed": 22,
+    "mapUrl": "https://map.wnymeshcore.org"
   }
 }

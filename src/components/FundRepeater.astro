@@ -1,0 +1,39 @@
+---
+// "Fund the next repeater" donation ask. Cost, count and map link live in Site settings → Solar repeaters.
+import Icon from './Icon.astro';
+import site from '../data/site.json';
+
+interface Props { heading?: string }
+const { heading = 'Fund the next repeater' } = Astro.props;
+const { cost, deployed, mapUrl } = site.repeaters;
+---
+<div class="fund card">
+  <div class="icon-badge"><Icon name="sun" /></div>
+  <h2>{heading}</h2>
+  <p>
+    A solar repeater costs about <strong>${cost}</strong> to build: the radio, solar panel, battery,
+    and weatherproof enclosure. We've put up <strong>{deployed}</strong> across Western New York so far,
+    and each new one helps the neighbors around it stay in touch when the power and cell service go out.
+  </p>
+  <div class="btn-row">
+    <a class="btn btn--primary" href={`/donate/?amount=${cost}#give`}>Give ${cost}</a>
+    <a class="btn btn--soft" href={mapUrl}>See the coverage map</a>
+  </div>
+  <p class="small fund__note">{site.legalName} is a 501(c)(3). Your gift is tax-deductible.</p>
+</div>
+
+<style>
+  .fund {
+    background: var(--amber-100);
+    border-color: #f1dcb4;
+  }
+  .fund .icon-badge {
+    background: var(--paper);
+  }
+  .fund h2 {
+    margin-top: 0;
+  }
+  .fund__note {
+    margin: 14px 0 0;
+  }
+</style>
