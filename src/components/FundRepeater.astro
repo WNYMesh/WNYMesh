@@ -5,15 +5,16 @@ import site from '../data/site.json';
 
 interface Props { heading?: string }
 const { heading = 'Fund the next repeater' } = Astro.props;
-const { cost, deployed, mapUrl } = site.repeaters;
+const { cost, regionTotal, deployed, mapUrl } = site.repeaters;
 ---
 <div class="fund card">
   <div class="icon-badge"><Icon name="sun" /></div>
   <h2>{heading}</h2>
   <p>
     A solar repeater costs about <strong>${cost}</strong> to build: the radio, solar panel, battery,
-    and weatherproof enclosure. We've put up <strong>{deployed}</strong> across Western New York so far,
-    and each new one helps the neighbors around it stay in touch when the power and cell service go out.
+    and weatherproof enclosure. About <strong>{regionTotal}</strong> repeaters now carry the mesh across
+    Western New York, <strong>{deployed}</strong> of them built by WNYMesh. Each new one helps the neighbors
+    around it stay in touch when the power and cell service go out.
   </p>
   <div class="btn-row">
     <a class="btn btn--primary" href={`/donate/?amount=${cost}#give`}>Give ${cost}</a>
