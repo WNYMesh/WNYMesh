@@ -36,7 +36,7 @@ All three forms are handled by small Netlify Functions in `netlify/functions/` (
 | --- | --- | --- |
 | Stay in the loop | Home and Events pages | Added to MailerLite, in the Newsletter group. |
 | Get Involved | `/get-involved/` | Emailed to the form inbox. Added to MailerLite in the Volunteers group, with their interests. Also added to the Newsletter group if they tick "Also send me the newsletter". |
-| Contact | `/contact/` | Emailed to the form inbox. |
+| Contact | `/contact/` | Emailed to the form inbox. Also added to the Newsletter group if they tick "Also send me the newsletter". |
 
 Form emails come from MailerSend (MailerLite's sister service for one-off emails). Hit **Reply** to answer the person directly.
 

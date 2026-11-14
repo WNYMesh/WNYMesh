@@ -26,6 +26,7 @@ const [emailUser, emailDomain] = site.email.split('@');
             <label for="c-message">Message</label>
             <textarea id="c-message" name="message" maxlength="5000" required></textarea>
           </div>
+          <label class="check"><input type="checkbox" name="newsletter" value="yes" /> Also send me the newsletter: occasional updates about events and the network</label>
           <p class="form-status" role="alert" hidden></p>
           <div><button type="submit" class="btn btn--primary">Send message</button></div>
         </form>
