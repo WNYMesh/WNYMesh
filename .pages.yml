@@ -23,6 +23,25 @@ content:
       - { name: draft, label: Hide from the website, type: boolean, default: false }
       - { name: body, label: Full details, type: rich-text }
 
+  - name: news
+    label: News
+    type: collection
+    path: src/content/news
+    filename: "{year}-{month}-{primary}.md"
+    view:
+      fields: [title, date]
+    fields:
+      - { name: title, label: Post title, type: string, required: true }
+      - { name: date, label: Date, type: date, required: true }
+      - { name: summary, label: Short summary (one or two sentences), type: text, required: true }
+      - { name: outlet, label: "For press coverage: who ran the story (e.g. 7 News WKBW)", type: string }
+      - { name: storyTitle, label: "For press coverage: the story's headline", type: string }
+      - { name: storyUrl, label: "For press coverage: link to the story", type: string }
+      - { name: videoId, label: "YouTube video ID (the part after watch?v= in the link)", type: string }
+      - { name: featured, label: Show the video on the home page, type: boolean, default: false }
+      - { name: draft, label: Hide from the website, type: boolean, default: false }
+      - { name: body, label: Post text, type: rich-text }
+
   - name: pages
     label: Page text
     type: collection
