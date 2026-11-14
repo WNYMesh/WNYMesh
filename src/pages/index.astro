@@ -6,9 +6,12 @@ import EventCard from '../components/EventCard.astro';
 import SignupForm from '../components/SignupForm.astro';
 import site from '../data/site.json';
 import { getEvents } from '../lib/events';
+import VideoEmbed from '../components/VideoEmbed.astro';
+import { getPosts } from '../lib/news';
 
 const { upcoming } = await getEvents();
 const nextEvent = upcoming[0];
+const featured = (await getPosts()).find((p) => p.data.featured && p.data.videoId);
 ---
 <BaseLayout>
   <section class="hero">
@@ -54,6 +57,24 @@ const nextEvent = upcoming[0];
       </div>
     </div>
   </section>
+
+  {featured && (
+    <section class="section section--warm">
+      <div class="container narrow">
+        <span class="eyebrow">{featured.data.outlet ? `As seen on ${featured.data.outlet}` : 'In the news'}</span>
+        <h2>{featured.data.storyTitle ?? featured.data.title}</h2>
+        <VideoEmbed id={featured.data.videoId!} title={featured.data.storyTitle ?? featured.data.title} />
+        <div class="btn-row news-actions">
+          {featured.data.storyUrl && (
+            <a class="btn btn--primary" href={featured.data.storyUrl} target="_blank" rel="noopener">
+              Read the full story<span class="visually-hidden"> (opens in a new tab)</span>
+            </a>
+          )}
+          <a class="btn btn--soft" href={`/news/${featured.id}/`}>Our post about it</a>
+        </div>
+      </div>
+    </section>
+  )}
 
   <section class="section section--tint" id="how-it-works">
     <div class="container">
@@ -119,6 +140,9 @@ const nextEvent = upcoming[0];
 </BaseLayout>
 
 <style>
+  .news-actions {
+    margin-top: 24px;
+  }
   .hero {
     background: linear-gradient(180deg, var(--lake-100), var(--cream));
     padding: clamp(40px, 7vw, 80px) 0;
