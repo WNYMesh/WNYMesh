@@ -56,6 +56,14 @@
           "couponNote": "5% off the Solar Node P1 series"
         }
       ]
+    },
+    {
+      "name": "Amazon",
+      "url": "https://amzn.to/4jjuj3u",
+      "description": "Amazon is handy for the everyday parts that go into a radio setup or a solar repeater: batteries, small solar panels, weatherproof enclosures, USB cables, antenna adapters and mounting hardware. Buying through our link costs you nothing extra and helps fund the network.",
+      "linkText": "Shop Amazon",
+      "affiliate": true,
+      "disclosure": "As an Amazon Associate, WNYMesh Inc. earns from qualifying purchases."
     }
   ],
   "affiliateDisclosure": "WNYMesh Inc. earns a small commission when you buy through our partner links, at no extra cost to you. It goes toward radios, solar panels and batteries for the network.",

@@ -55,7 +55,9 @@ const hasAffiliate = partners.some((p) => p.affiliate);
               <a class="btn btn--primary" href={p.url} rel={p.affiliate ? 'sponsored noopener' : 'noopener'}>
                 {p.linkText || `Visit ${p.name}`}
               </a>
-              {p.affiliate && site.affiliateDisclosure && <p class="small partner__note">{site.affiliateDisclosure}</p>}
+              {p.affiliate && (p.disclosure || site.affiliateDisclosure) && (
+                <p class="small partner__note">{p.disclosure || site.affiliateDisclosure}</p>
+              )}
             </div>
           </li>
         ))}

@@ -106,6 +106,7 @@ content:
               - { name: couponNote, label: "What the coupon gets you (e.g. 2% off XIAO boards)", type: string }
           - { name: coupon, label: "Coupon code (optional)", type: string }
           - { name: couponNote, label: "What the coupon gets you (e.g. 5% off XIAO boards)", type: string }
+          - { name: disclosure, label: "Commission disclosure for this partner (optional; replaces the general one, e.g. Amazon's required wording)", type: text }
       - { name: affiliateDisclosure, label: Commission disclosure (shown next to affiliate links), type: text }
       - name: repeaters
         label: Solar repeaters (shown in donation asks)
