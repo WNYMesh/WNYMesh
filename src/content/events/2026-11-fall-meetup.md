@@ -12,6 +12,8 @@ draft: false
 ---
 
 > **We've moved!** The meetup is no longer at Belt Line Brewery. Same day and time, new place: **Eugene V. Debs Hall, 483 Peckham Street, Buffalo**.
+>
+> Since our [story on 7 News WKBW](/news/2026-11-wkbw-off-grid-messaging/), a lot more people have been asking about the network, and we're expecting a bigger crowd. To make sure there's room for everyone, we've moved to a private hall and are asking everyone to register (it's free).
 
 Join WNYMesh and the WNYMeshCore community for an evening with neighbors who are building and using Western New York's community radio network.
 
