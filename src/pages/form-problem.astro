@@ -11,6 +11,7 @@ import site from '../data/site.json';
       <p class="lede" data-reason="server">Something went wrong on our end and your message wasn't sent.</p>
       <p class="lede" data-reason="email" hidden>That email address didn't look quite right.</p>
       <p class="lede" data-reason="missing" hidden>A required field was empty.</p>
+      <p class="lede" data-reason="closed" hidden>Registration for this event is closed.</p>
       <p>
         Please use your browser's back button to return to the form and try again. If it keeps happening,
         email us at <a href={`mailto:${site.email}`}>{site.email}</a>.
@@ -20,7 +21,7 @@ import site from '../data/site.json';
   </section>
   <script is:inline>
     const reason = new URLSearchParams(location.search).get('reason');
-    if (reason === 'email' || reason === 'missing') {
+    if (reason === 'email' || reason === 'missing' || reason === 'closed') {
       document.querySelectorAll('[data-reason]').forEach((p) => (p.hidden = p.dataset.reason !== reason));
     }
   </script>

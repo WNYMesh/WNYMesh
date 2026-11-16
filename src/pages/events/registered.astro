@@ -1,0 +1,48 @@
+---
+// Shown after someone registers for an event (netlify/functions/rsvp.mjs sends them here
+// with ?event=<id>). The details are filled in from the event list so one page serves every event.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+<BaseLayout title="You're registered" description="Thanks for registering for a WNYMesh event.">
+  <section class="section">
+    <div class="container narrow">
+      <h1>You're registered!</h1>
+      <p class="lede">Thanks for signing up. We've emailed you a confirmation. If it doesn't arrive in a few minutes, check your spam or promotions folder.</p>
+      <div class="card" id="details" hidden>
+        <h2 id="d-title"></h2>
+        <p><strong>When:</strong> <span id="d-when"></span><br /><strong>Where:</strong> <span id="d-where"></span> <a id="d-map" target="_blank" rel="noopener" hidden>(map)</a></p>
+        <p id="d-note"></p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/events/">See all events</a>
+        <a class="btn btn--soft" href="/">Back to home</a>
+      </div>
+    </div>
+  </section>
+  <script>
+    const id = new URLSearchParams(location.search).get('event');
+    if (id) {
+      fetch('/events/rsvp.json')
+        .then((r) => r.json())
+        .then(({ events }) => {
+          const e = events.find((x: { id: string }) => x.id === id);
+          if (!e) return;
+          const set = (sel: string, text: string) => {
+            const el = document.getElementById(sel);
+            if (el) el.textContent = text;
+          };
+          set('d-title', e.title);
+          set('d-when', e.when);
+          set('d-where', e.location);
+          set('d-note', e.note);
+          const map = document.getElementById('d-map') as HTMLAnchorElement | null;
+          if (map && e.mapUrl) {
+            map.href = e.mapUrl;
+            map.hidden = false;
+          }
+          document.getElementById('details')!.hidden = false;
+        })
+        .catch(() => {});
+    }
+  </script>
+</BaseLayout>

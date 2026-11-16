@@ -62,6 +62,29 @@ In MailerLite:
 
 The visitor sees the problem on the form, and what they typed is kept. Without JavaScript they see `/signup-problem/` or `/form-problem/` instead. The reason is in **Netlify → Logs → Functions** under the form's function (`subscribe`, `get-involved` or `contact`).
 
+## Event registration
+
+For a free event, tick **Free registration on our site** on the event in the CMS. The event's page (for example `wnymesh.org/events/fall-meetup/`, set by the event's short web address) then shows a form asking for name, email and how many people are coming. Share that page's link on social media.
+
+When someone registers:
+- They're added to the event's guest list. Registering again with the same email updates their entry instead of adding a second one.
+- They get a confirmation email with the time, place and the event's **Note for people who register**. Replies to it go to the form inbox.
+- The form inbox gets an email about it, with a link to the guest list.
+
+Registration closes on its own after the event day, or when you tick **Stop taking registrations**.
+
+People who register are not added to MailerLite or the newsletter.
+
+### Guest list
+
+Open `wnymesh.org/api/guest-list` (or the link in any registration email). Your browser asks for a username and password: type anything as the username, and the `GUEST_LIST_PASSWORD` below as the password. Pick an event to see the names, a head count, and checkboxes for the door. You can also download the list as a spreadsheet.
+
+| Name | Value |
+| --- | --- |
+| `GUEST_LIST_PASSWORD` | Password for the guest list. Pick a long one and share it only with organizers. Secret. |
+
+Registration also uses `MAILERSEND_API_KEY`, `FORM_FROM` and `FORM_INBOX` from the Forms settings above. The guest list is kept in Netlify Blobs, which needs no setup.
+
 ## Developers
 
 Requires Node 22.

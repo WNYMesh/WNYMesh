@@ -17,9 +17,14 @@ content:
       - { name: when, label: "When (as it should read, e.g. Saturday, March 7, 10am to 2pm)", type: string, required: true }
       - { name: date, label: Date (used for sorting; leave empty if not decided), type: date }
       - { name: location, label: Where, type: string, required: true }
+      - { name: mapUrl, label: "Map link for the location (optional, e.g. a Google Maps link)", type: string }
+      - { name: slug, label: "Short web address for the event's page (optional, e.g. fall-meetup makes wnymesh.org/events/fall-meetup/). Don't change it after sharing the link.", type: string }
       - { name: summary, label: Short summary (one or two sentences), type: text, required: true }
       - { name: price, label: "Cost (as it should read, e.g. $25 per person, includes parts). Leave empty for free events.", type: string }
       - { name: registrationUrl, label: "Square payment link for registration (https://square.link/u/...). Leave empty if no sign-up is needed.", type: string }
+      - { name: rsvp, label: "Free registration on our site (shows a sign-up form and keeps a guest list)", type: boolean, default: false }
+      - { name: rsvpClosed, label: "Stop taking registrations (e.g. when the room is full)", type: boolean, default: false }
+      - { name: rsvpNote, label: "Note for people who register (shown after they sign up and in their confirmation email)", type: text }
       - { name: draft, label: Hide from the website, type: boolean, default: false }
       - { name: body, label: Full details, type: rich-text }
 

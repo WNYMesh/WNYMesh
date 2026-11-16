@@ -1,20 +1,27 @@
 ---
 import Icon from './Icon.astro';
-import type { Event } from '../lib/events';
+import { eventPath, rsvpOpen, type Event } from '../lib/events';
 
 interface Props {
   event: Event;
+  /** Show the full details from the event's file. */
   full?: boolean;
+  /** On the event's own page, where the registration form is shown below the card. */
+  onPage?: boolean;
 }
-const { event, full = false } = Astro.props;
-const { title, when, location, summary, registrationUrl, price } = event.data;
+const { event, full = false, onPage = false } = Astro.props;
+const { title, when, location, mapUrl, summary, registrationUrl, price, rsvp } = event.data;
+const page = eventPath(event);
+const open = rsvpOpen(event);
 ---
 <article class="card event">
   <div class="icon-badge"><Icon name="calendar" /></div>
-  <h3>{title}</h3>
+  <h3>{onPage ? title : <a href={page}>{title}</a>}</h3>
   <p class="event__meta">
     <strong>When:</strong> {when}<br /><strong>Where:</strong> {location}
+    {mapUrl && <> (<a href={mapUrl} target="_blank" rel="noopener">map<span class="visually-hidden">, opens in a new tab</span></a>)</>}
     {price && <><br /><strong>Cost:</strong> {price}</>}
+    {rsvp && !price && <><br /><strong>Cost:</strong> Free, registration required</>}
   </p>
   <p>{summary}</p>
   {full && <div class="prose"><slot /></div>}
@@ -24,7 +31,12 @@ const { title, when, location, summary, registrationUrl, price } = event.data;
         Register<span class="visually-hidden"> for {title} (opens Square checkout in a new tab)</span>
       </a>
     )}
-    {!full && <a href="/events/">Event details</a>}
+    {rsvp && !onPage && open && (
+      <a class="btn btn--primary" href={`${page}#register`}>
+        Register<span class="visually-hidden"> for {title}</span>
+      </a>
+    )}
+    {!onPage && <a href={page}>Event details</a>}
   </div>
   {registrationUrl && <p class="small">Payment is handled securely by Square.</p>}
 </article>
@@ -45,5 +57,8 @@ const { title, when, location, summary, registrationUrl, price } = event.data;
   .event__meta {
     color: var(--ink-soft);
     font-size: 1rem;
+  }
+  h3 a {
+    color: inherit;
   }
 </style>
