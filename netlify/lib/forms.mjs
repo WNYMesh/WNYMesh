@@ -31,7 +31,7 @@ export function done(req, path) {
   return Response.redirect(new URL(path, req.url), 303);
 }
 
-/** Failure: `reason` is 'email' (bad address), 'missing' (required field empty), or 'server'. */
+/** Failure: `reason` is 'email' (bad address), 'missing' (required field empty), 'closed' (registration closed), or 'server'. */
 export function fail(req, reason, fallbackPath) {
   if (wantsJson(req)) return Response.json({ ok: false, reason }, { status: reason === 'server' ? 502 : 400 });
   return Response.redirect(new URL(`${fallbackPath}?reason=${reason}`, req.url), 303);

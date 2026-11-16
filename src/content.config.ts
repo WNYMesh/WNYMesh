@@ -18,10 +18,20 @@ const events = defineCollection({
     date: z.coerce.date().optional(),
     when: z.string(),
     location: z.string(),
+    // Optional map link for the location (shown on the event page and in the confirmation email).
+    mapUrl: z.string().url().optional().or(z.literal('')),
     summary: z.string(),
     // Optional paid registration through a Square payment link (https://square.link/u/...).
     registrationUrl: z.string().url().optional().or(z.literal('')),
     price: z.string().optional(),
+    // Free registration on our own site: shows a form on the event's page, keeps a guest list,
+    // and emails each person a confirmation. See "Event registration" in the README.
+    rsvp: z.boolean().default(false),
+    // Stops new registrations (e.g. when the room is full). Registration also closes on its own
+    // once the event day is over.
+    rsvpClosed: z.boolean().default(false),
+    // Extra details for people who register, shown on the confirmation page and in the email.
+    rsvpNote: z.string().optional(),
     // Hidden from the site until set to false.
     draft: z.boolean().default(false),
   }),
