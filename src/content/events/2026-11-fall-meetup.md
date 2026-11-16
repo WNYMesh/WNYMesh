@@ -21,7 +21,7 @@ Whether you already run a node or are just curious about mesh radios, come say h
 
 ## Good to know
 
-- **Private event, registration required.** It's free. Register below so we have you on the guest list.
+- **Private event, registration required.** It's free. Register above so we have you on the guest list.
 - **Cash bar.** Beer, wine and cider are available to buy. Drinks aren't included with registration.
 - **No food** will be served.
 

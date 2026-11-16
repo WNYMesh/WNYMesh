@@ -19,16 +19,12 @@ const open = rsvpOpen(event);
 ---
 <BaseLayout title={title} description={`${when}. ${event.data.summary}`}>
   <section class="section">
-    <div class="container narrow">
+    <div class="container narrow event-page">
       <p class="back"><a href="/events/">← All events</a></p>
-      <EventCard event={event} full onPage><Content /></EventCard>
-    </div>
-  </section>
+      <EventCard event={event} onPage />
 
-  {rsvp && (
-    <section class="section section--tint" id="register">
-      <div class="container narrow">
-        <div class="card">
+      {rsvp && (
+        <div class="card" id="register">
           <h2>Register</h2>
           {open ? (
             <>
@@ -36,13 +32,15 @@ const open = rsvpOpen(event);
               <form method="POST" action="/api/rsvp" class="form" data-enhance>
                 <input type="hidden" name="event" value={event.id} />
                 <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>
-                <div class="field">
-                  <label for="rsvp-name">Your name</label>
-                  <input id="rsvp-name" type="text" name="name" autocomplete="name" maxlength="100" required />
-                </div>
-                <div class="field">
-                  <label for="rsvp-email">Email</label>
-                  <input id="rsvp-email" type="email" name="email" autocomplete="email" inputmode="email" maxlength="254" required />
+                <div class="form-row">
+                  <div class="field">
+                    <label for="rsvp-name">Your name</label>
+                    <input id="rsvp-name" type="text" name="name" autocomplete="name" maxlength="100" required />
+                  </div>
+                  <div class="field">
+                    <label for="rsvp-email">Email</label>
+                    <input id="rsvp-email" type="email" name="email" autocomplete="email" inputmode="email" maxlength="254" required />
+                  </div>
                 </div>
                 <div class="field">
                   <label for="rsvp-party">How many people are coming, including you?</label>
@@ -59,14 +57,32 @@ const open = rsvpOpen(event);
             <p>Registration for this event is closed. <a href="/contact/">Get in touch</a> if you have questions.</p>
           )}
         </div>
+      )}
+
+      <div class="card prose">
+        <Content />
       </div>
-    </section>
-  )}
+    </div>
+  </section>
   <FormEnhance />
 </BaseLayout>
 
 <style>
+  .event-page {
+    display: grid;
+    gap: 24px;
+  }
   .back {
-    margin: 0 0 16px;
+    margin: 0;
+  }
+  #register {
+    border: 2px solid var(--lake-500);
+    scroll-margin-top: 16px;
+  }
+  #register h2 {
+    margin-top: 0;
+  }
+  .event-page select {
+    max-width: 120px;
   }
 </style>
