@@ -5,11 +5,16 @@ date: 2026-11-18
 when: Wednesday, November 18, 7:00 PM
 location: Eugene V. Debs Hall, 483 Peckham Street, Buffalo, NY 14206
 mapUrl: https://www.google.com/maps/search/?api=1&query=Eugene+V.+Debs+Hall+483+Peckham+Street+Buffalo+NY+14206
-summary: "New location: our fall meetup has moved to Eugene V. Debs Hall in Buffalo. It's a private event, so please register (it's free). Meet other mesh radio users in Western New York, talk about the network, and get a chance to take home one of three Heltec T096 radios."
+summary: "Registration is closed: we've reached capacity. Thank you to everyone who signed up! We'll be hosting more events, both virtually and in person, in early December. Registered guests: we've moved to Eugene V. Debs Hall in Buffalo."
 rsvp: true
+rsvpClosed: true
 rsvpNote: "This is a private event, and your name will be on the guest list at the door. It's free to attend. There's a cash bar with beer, wine and cider (drinks aren't included). No food will be served."
 draft: false
 ---
+
+> **Registration is closed.** We've reached capacity for the fall meetup, and we can't take any more registrations. Thank you to everyone who signed up!
+>
+> If you missed out, we'll be hosting more events, both **virtually and in person, in early December**. Keep an eye on our [events page](/events/) for details.
 
 > **We've moved!** The meetup is no longer at Belt Line Brewery. Same day and time, new place: **Eugene V. Debs Hall, 483 Peckham Street, Buffalo**.
 >
@@ -21,7 +26,7 @@ Whether you already run a node or are just curious about mesh radios, come say h
 
 ## Good to know
 
-- **Private event, registration required.** It's free. Register above so we have you on the guest list.
+- **Private event.** Registration is closed. If you registered, your name will be on the guest list at the door.
 - **Cash bar.** Beer, wine and cider are available to buy. Drinks aren't included with registration.
 - **No food** will be served.
 
