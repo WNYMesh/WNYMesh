@@ -6,7 +6,7 @@ summary: Spend an evening with neighbors building the solar-powered repeaters th
 draft: true
 ---
 
-Come build part of the network with us. Volunteers will walk everyone through putting together a solar-powered repeater, the small rooftop radios that pass messages across Western New York.
+Come build part of the network with us. Volunteers will walk everyone through putting together a solar-powered repeater, the radios that form our regional backbone and pass messages across Western New York.
 
 You don't need any technical background. Bring your curiosity, and we'll bring the coffee.
 
