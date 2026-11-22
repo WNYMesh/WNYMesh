@@ -15,7 +15,7 @@ We believe a community that is connected before an emergency is safer during one
 
 ## What we do
 
-- **Build and care for the network.** Volunteers install and maintain solar-powered radio repeaters across the region, so messages can travel from neighbor to neighbor without cell towers or the internet.
+- **Build and care for the network.** Volunteers and partners install and maintain a backbone of solar-powered radio repeaters across the region, so messages can travel from neighbor to neighbor without cell towers or the internet.
 - **Teach and prepare.** We hold free workshops and share plain-language guides on emergency communication and preparedness.
 - **Bring people together.** Build nights, meetups, and demonstrations are a chance to learn something new and meet the people nearby.
 

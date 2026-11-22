@@ -8,12 +8,12 @@ import FormEnhance from '../components/FormEnhance.astro';
 const ways = [
   { icon: 'calendar', title: 'Come to an event', text: 'The easiest way to start. Meet us at a build night or workshop and see the network in action.', href: '/events/', link: 'See events' },
   { icon: 'radio', title: 'Join the network', text: `Get a small radio and start using the network. ${site.networkSite.name} has everything you need, including which radio to get and where to buy it.`, href: site.radioGuideUrl, link: 'Which radio should I get?' },
-  { icon: 'home', title: 'Host a repeater', text: 'Have a tall building, a rooftop, or a sunny spot with a view? A repeater there could help a whole neighborhood.', href: '#interest', link: 'Let us know' },
+  { icon: 'home', title: 'Partner on a backbone site', text: 'Own or manage a tall building, tower, or high ground with a wide view? A backbone repeater there can carry messages across the region.', href: '/partners/#backbone', link: 'Learn about partnering' },
   { icon: 'hands', title: 'Volunteer', text: 'Help at events, teach a workshop, write guides, spread the word, or lend a hand with installs. Every skill helps.', href: '#interest', link: 'Sign up to help' },
   { icon: 'heart', title: 'Donate', text: 'Gifts of any size buy solar panels, batteries, and radios for the network. WNYMesh is a 501(c)(3), so your gift is tax-deductible.', href: '/donate/', link: 'Make a gift' },
 ] as const;
 ---
-<BaseLayout title="Get Involved" description="Come to an event, join the network, host a repeater, volunteer, or donate. There's a place for everyone.">
+<BaseLayout title="Get Involved" description="Come to an event, join the network, partner on a backbone site, volunteer, or donate. There's a place for everyone.">
   <PageHeader
     eyebrow="Get involved"
     title="There's a place for everyone"
@@ -63,7 +63,7 @@ const ways = [
           <fieldset class="field">
             <legend>I'm interested in</legend>
             <label class="check"><input type="checkbox" name="interest" value="Volunteering at events" /> Volunteering at events</label>
-            <label class="check"><input type="checkbox" name="interest" value="Hosting a repeater" /> Hosting a repeater at my home, business, or building</label>
+            <label class="check"><input type="checkbox" name="interest" value="Offering a backbone site" /> Offering a backbone site (business, organization, or public building)</label>
             <label class="check"><input type="checkbox" name="interest" value="Teaching or writing guides" /> Teaching a workshop or writing guides</label>
             <label class="check"><input type="checkbox" name="interest" value="Installs and technical help" /> Helping with installs and technical work</label>
             <label class="check"><input type="checkbox" name="interest" value="Spreading the word" /> Spreading the word in my community</label>

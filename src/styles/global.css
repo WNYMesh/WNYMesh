@@ -30,6 +30,8 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Keep in-page links (#fund, #backbone, ...) from landing under the sticky header. */
+  scroll-padding-top: 96px;
 }
 
 body {

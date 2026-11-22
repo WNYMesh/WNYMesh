@@ -73,12 +73,36 @@ const hasAffiliate = partners.some((p) => p.affiliate);
 
   <section class="section section--tint">
     <div class="container narrow">
-      <h2>Become a partner</h2>
+      <h2 id="backbone">Backbone partnerships</h2>
       <p>
-        Local businesses can help by sponsoring a solar repeater, donating equipment, or offering a
-        rooftop. {site.legalName} is a 501(c)(3), so gifts are tax-deductible to the extent allowed by law.
+        Our network depends on a backbone of solar-powered repeaters on tall buildings, towers, and
+        other high places. One well-placed site can carry messages across whole communities. With so
+        many people joining, we're focusing our resources on these high sites, built together with
+        local businesses, municipalities, schools, places of worship, fire halls, and tower owners.
       </p>
-      <a class="btn btn--primary" href="/contact/">Talk to us about partnering</a>
+      <h3>What makes a good site</h3>
+      <ul>
+        <li>Height: a tall building, tower, water tank, or high ground with a wide, open view</li>
+        <li>Access to the roof or tower for installation and the occasional maintenance visit</li>
+        <li>Permission to mount a small antenna and a solar panel</li>
+        <li>A spot that gets good sun, since most of our repeaters run on solar power</li>
+      </ul>
+      <h3>How it works</h3>
+      <p>
+        {site.legalName} supplies the equipment and our volunteers install and look after it. You
+        provide the space and access. Partner sites appear on our coverage map, and we're glad to
+        recognize partners here on our site.
+      </p>
+      <p>
+        Businesses can also help by sponsoring a repeater or donating equipment. {site.legalName} is a
+        501(c)(3), so gifts are tax-deductible to the extent allowed by law.
+      </p>
+      <p class="small">
+        We generally aren't able to place repeaters at private homes. If you'd like better coverage
+        where you live, you can set up your own node with help from our community on
+        <a href={site.networkSite.url}>{site.networkSite.name}</a>.
+      </p>
+      <a class="btn btn--primary" href="/contact/">Propose a site or talk about partnering</a>
       {hasAffiliate && <p class="small partner__fine">Some links on this page are affiliate links. See the note under each partner.</p>}
     </div>
   </section>

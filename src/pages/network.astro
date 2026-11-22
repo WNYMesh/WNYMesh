@@ -21,11 +21,18 @@ import FundRepeater from '../components/FundRepeater.astro';
         town and beyond without cell towers, internet, or the power grid.
       </p>
       <p>
-        Repeaters on rooftops and other high places help messages travel farther. Many run on
-        solar panels and batteries, so they keep working through an outage. Each one costs about
-        ${site.repeaters.cost} to build. About {site.repeaters.regionTotal} are on the air across the region,
+        A backbone of repeaters on tall buildings, towers, and other high places carries messages
+        across the region. Many run on solar panels and batteries, so they keep working through an
+        outage. We build these backbone sites together with local businesses and organizations.
+        Each one costs about ${site.repeaters.cost} to build. About {site.repeaters.regionTotal} are on the air across the region,
         built by community members and by WNYMesh ({site.repeaters.deployed} so far).
         <a href="#fund">Help fund the next one</a>.
+      </p>
+      <p>
+        With so many people joining, we're focusing our resources on high sites that serve whole
+        communities, so we generally aren't able to place repeaters at private homes. Want better coverage
+        where you live? You can set up your own node, and our community on
+        <a href={site.networkSite.url}>{site.networkSite.name}</a> and Discord is happy to help.
       </p>
 
       <h2>Who it's for</h2>
@@ -59,12 +66,12 @@ import FundRepeater from '../components/FundRepeater.astro';
         </div>
         <div class="card">
           <div class="icon-badge"><Icon name="home" /></div>
-          <h3>Host a repeater</h3>
+          <h3>Partner on a backbone site</h3>
           <p>
-            A tall building, a sunny rooftop, or a spot with a wide view can help a whole
-            neighborhood stay connected. If you can offer a location, we'd love to talk.
+            Own or manage a tall building, a tower, or high ground with a wide view? A backbone
+            repeater there can keep whole communities connected. We'd love to talk.
           </p>
-          <a class="btn btn--soft" href="/get-involved/">Offer a location</a>
+          <a class="btn btn--soft" href="/partners/#backbone">Talk to us about a site</a>
         </div>
       </div>
     </div>
