@@ -5,7 +5,7 @@
 //   /api/guest-list?event=fall-meetup&format=csv   the same as a spreadsheet download
 import { timingSafeEqual, createHash } from 'node:crypto';
 import { env, escapeHtml } from '../lib/forms.mjs';
-import { listRsvps, listRsvpEvents } from '../lib/rsvps.mjs';
+import { listRsvps, listRsvpEvents, cleanId } from '../lib/rsvps.mjs';
 
 export const config = { path: '/api/guest-list', method: 'GET' };
 
@@ -39,7 +39,7 @@ export default async (req) => {
   }
 
   const url = new URL(req.url);
-  const eventId = url.searchParams.get('event');
+  const eventId = cleanId(url.searchParams.get('event'));
   try {
     if (!eventId) {
       const ids = await listRsvpEvents();

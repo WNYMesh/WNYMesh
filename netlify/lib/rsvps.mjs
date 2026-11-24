@@ -4,6 +4,9 @@ import { getStore } from '@netlify/blobs';
 
 const store = () => getStore({ name: 'rsvps', consistency: 'strong' });
 
+/** An event id without stray slashes or spaces, e.g. "december-meetup/" → "december-meetup". */
+export const cleanId = (id) => String(id || '').trim().replace(/^\/+|\/+$/g, '');
+
 const keyFor = (eventId, email) => `${eventId}/${encodeURIComponent(email.toLowerCase())}`;
 
 /** Save a registration. Returns { saved, updated } and never throws. */
@@ -27,7 +30,7 @@ export async function saveRsvp(eventId, entry) {
 /** Every registration for an event, oldest first. Throws if the store can't be read. */
 export async function listRsvps(eventId) {
   const s = store();
-  const { blobs } = await s.list({ prefix: `${eventId}/` });
+  const { blobs } = await s.list({ prefix: `${cleanId(eventId)}/` });
   const entries = await Promise.all(blobs.map((b) => s.get(b.key, { type: 'json' })));
   return entries.filter(Boolean).sort((a, b) => a.registeredAt.localeCompare(b.registeredAt));
 }
@@ -46,7 +49,8 @@ export async function headcount(eventId, exceptEmail = '') {
 /** The ids of every event that has registrations. Throws if the store can't be read. */
 export async function listRsvpEvents() {
   const { directories } = await store().list({ directories: true });
-  return directories.sort();
+  // Netlify Blobs may return directory names with a trailing slash ("fall-meetup/").
+  return [...new Set(directories.map(cleanId))].sort();
 }
 
 /**
