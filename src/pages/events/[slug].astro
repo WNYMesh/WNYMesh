@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content } = await render(event);
-const { title, when, rsvp } = event.data;
+const { title, when, rsvp, capacity } = event.data;
 const open = rsvpOpen(event);
 ---
 <BaseLayout title={title} description={`${when}. ${event.data.summary}`}>
@@ -28,7 +28,7 @@ const open = rsvpOpen(event);
           <h2>Register</h2>
           {open ? (
             <>
-              <p>It's free. Register so we have you on the guest list, and we'll email you a confirmation with the details.</p>
+              <p>It's free. Register so we have you on the guest list, and we'll email you a confirmation with the details.{capacity && ` Space is limited to ${capacity} people, so please register only if you plan to come.`}</p>
               <form method="POST" action="/api/rsvp" class="form" data-enhance>
                 <input type="hidden" name="event" value={event.id} />
                 <p class="hidden-field" aria-hidden="true"><label>Leave this empty: <input name="website" tabindex="-1" autocomplete="off" /></label></p>

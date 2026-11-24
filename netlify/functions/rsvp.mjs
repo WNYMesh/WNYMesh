@@ -2,7 +2,7 @@
 // Saves the person to the guest list, emails them a confirmation, and lets the form inbox know.
 // The guest list is at /api/guest-list. Settings are listed in the README under "Event registration".
 import { EMAIL, env, readForm, isBot, done, fail, sendEmail, emailInbox, escapeHtml } from '../lib/forms.mjs';
-import { saveRsvp, loadEvents } from '../lib/rsvps.mjs';
+import { saveRsvp, loadEvents, headcount } from '../lib/rsvps.mjs';
 
 export const config = { path: '/api/rsvp', method: 'POST' };
 
@@ -25,6 +25,15 @@ export default async (req) => {
   if (!events) return fail(req, 'server', PROBLEM);
   const event = events.find((e) => e.id === eventId);
   if (!event || event.closed || (event.closesAt && Date.now() > event.closesAt)) return fail(req, 'closed', PROBLEM);
+
+  if (event.capacity) {
+    try {
+      if ((await headcount(event.id, email)) + party > event.capacity) return fail(req, 'full', PROBLEM);
+    } catch (err) {
+      // If the guest list can't be read, take the registration rather than turn people away.
+      console.error(`Registrations: could not check capacity (${err.message}).`);
+    }
+  }
 
   const { saved, updated } = await saveRsvp(event.id, { name, email, party });
 

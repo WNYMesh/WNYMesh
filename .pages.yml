@@ -24,6 +24,7 @@ content:
       - { name: registrationUrl, label: "Square payment link for registration (https://square.link/u/...). Leave empty if no sign-up is needed.", type: string }
       - { name: rsvp, label: "Free registration on our site (shows a sign-up form and keeps a guest list)", type: boolean, default: false }
       - { name: rsvpClosed, label: "Stop taking registrations (e.g. when the room is full)", type: boolean, default: false }
+      - { name: capacity, label: "Most people who can register, counting everyone in each group (registration stops on its own at this number). Leave empty for no limit.", type: number }
       - { name: rsvpNote, label: "Note for people who register (shown after they sign up and in their confirmation email)", type: text }
       - { name: draft, label: Hide from the website, type: boolean, default: false }
       - { name: body, label: Full details, type: rich-text }

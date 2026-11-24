@@ -32,6 +32,17 @@ export async function listRsvps(eventId) {
   return entries.filter(Boolean).sort((a, b) => a.registeredAt.localeCompare(b.registeredAt));
 }
 
+/**
+ * How many people are registered for an event, counting each person's group, leaving out
+ * `exceptEmail` (so someone changing their own registration isn't counted twice).
+ * Throws if the store can't be read.
+ */
+export async function headcount(eventId, exceptEmail = '') {
+  const skip = exceptEmail.toLowerCase();
+  const entries = await listRsvps(eventId);
+  return entries.filter((e) => e.email.toLowerCase() !== skip).reduce((n, e) => n + (e.party || 1), 0);
+}
+
 /** The ids of every event that has registrations. Throws if the store can't be read. */
 export async function listRsvpEvents() {
   const { directories } = await store().list({ directories: true });
