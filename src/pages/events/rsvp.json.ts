@@ -17,6 +17,7 @@ export const GET: APIRoute = async ({ site }) => {
     note: e.data.rsvpNote || '',
     url: new URL(eventPath(e), site ?? 'https://wnymesh.org').href,
     closed: e.data.rsvpClosed,
+    capacity: e.data.capacity ?? null,
     closesAt: e.data.date ? e.data.date.getTime() + DAY_END_MS : null,
   }));
   return new Response(JSON.stringify({ events: list }), { headers: { 'Content-Type': 'application/json' } });

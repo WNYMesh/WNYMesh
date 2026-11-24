@@ -30,6 +30,9 @@ const events = defineCollection({
     // Stops new registrations (e.g. when the room is full). Registration also closes on its own
     // once the event day is over.
     rsvpClosed: z.boolean().default(false),
+    // Most people who can register, counting everyone each person brings. Once the guest list
+    // reaches it, new registrations are turned away. Leave out for no limit.
+    capacity: z.number().int().positive().optional(),
     // Extra details for people who register, shown on the confirmation page and in the email.
     rsvpNote: z.string().optional(),
     // Hidden from the site until set to false.

@@ -71,7 +71,7 @@ When someone registers:
 - They get a confirmation email with the time, place and the event's **Note for people who register**. Replies to it go to the form inbox.
 - The form inbox gets an email about it, with a link to the guest list.
 
-Registration closes on its own after the event day, or when you tick **Stop taking registrations**.
+Registration closes on its own after the event day, or when you tick **Stop taking registrations**. To limit the number of guests, fill in **Most people who can register**: it counts everyone in each group, and once the guest list reaches it, new registrations are turned away with a message that the event is full.
 
 People who register are not added to MailerLite or the newsletter.
 
