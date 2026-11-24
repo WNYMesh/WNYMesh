@@ -24,7 +24,6 @@ const open = rsvpOpen(event);
     {rsvp && !price && <><br /><strong>Cost:</strong> Free, registration required</>}
   </p>
   <p>{summary}</p>
-  {full && <div class="prose"><slot /></div>}
   <div class="event__actions">
     {registrationUrl && (
       <a class="btn btn--primary" href={registrationUrl} target="_blank" rel="noopener">
@@ -39,6 +38,7 @@ const open = rsvpOpen(event);
     {!onPage && <a href={page}>Event details</a>}
   </div>
   {registrationUrl && <p class="small">Payment is handled securely by Square.</p>}
+  {full && <div class="prose prose--compact event__details"><slot /></div>}
 </article>
 
 <style>
@@ -53,6 +53,11 @@ const open = rsvpOpen(event);
   }
   .event__actions + .small {
     margin-top: 8px;
+  }
+  .event__details {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
   }
   .event__meta {
     color: var(--ink-soft);

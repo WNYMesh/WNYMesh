@@ -18,7 +18,7 @@ const { title, when, rsvp, capacity } = event.data;
 const open = rsvpOpen(event);
 ---
 <BaseLayout title={title} description={`${when}. ${event.data.summary}`}>
-  <section class="section">
+  <section class="section section--event">
     <div class="container narrow event-page">
       <p class="back"><a href="/events/">← All events</a></p>
       <EventCard event={event} onPage />
@@ -59,7 +59,7 @@ const open = rsvpOpen(event);
         </div>
       )}
 
-      <div class="card prose">
+      <div class="card prose prose--compact">
         <Content />
       </div>
     </div>
@@ -68,9 +68,12 @@ const open = rsvpOpen(event);
 </BaseLayout>
 
 <style>
+  .section--event {
+    padding-top: clamp(24px, 4vw, 40px);
+  }
   .event-page {
     display: grid;
-    gap: 24px;
+    gap: 16px;
   }
   .back {
     margin: 0;
@@ -81,6 +84,10 @@ const open = rsvpOpen(event);
   }
   #register h2 {
     margin-top: 0;
+    font-size: 1.5rem;
+  }
+  #register .form {
+    gap: 14px;
   }
   .event-page select {
     max-width: 120px;
